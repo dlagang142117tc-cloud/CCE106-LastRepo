@@ -1,0 +1,317 @@
+/* ========= GLOBAL RESET & BASE STYLES ========= */
+body, html {
+    font-family: "Segoe UI", Arial, sans-serif; /* Default font for the dashboard */
+    color: #333;                                /* Default text color */
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f9f9f9;
+}
+
+/* ========= MAIN DASHBOARD LAYOUT ========= */
+.dashboard-container {
+    display: flex;   /* Sidebar + main content side by side */
+    height: 100vh;   /* Full screen height */
+    
+
+}
+
+/* ========= TOP HEADER (inside main-content) ========= */
+.top-header {
+    display: flex;
+    justify-content: space-between; /* Welcome text left, actions right */
+    align-items: center;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+}
+
+/* Welcome Text */
+.top-header h1 {
+    color: #c40703; /* Red accent for "Welcome" */
+    font-size: 22px;
+    margin: 0;
+}
+
+/* Right side icons (bell, logout) */
+.header-actions {
+    display: flex;
+    gap: 15px; /* spacing between buttons */
+    align-items: center;
+}
+
+/* Notification Bell */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.icon-btn:hover {
+    transform: scale(1.2); /* hover zoom effect */
+}
+
+/* Logout Button */
+.logout-btn {
+    background: #ff4b5c;  /* red button */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.logout-btn:hover {
+    background: #e63946; /* darker red hover */
+}
+
+/* ========= SIDEBAR ========= */
+.sidebar {
+    width: 240px;
+    /*height: 100vh;*/
+    height: 100%; /*DL ADDED HERE*/
+    background: #90210b;   /* dark red */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-shrink: 0; /* sidebar stays fixed size */
+}
+
+/* Sidebar Logo (small icon before UM Clinic text) */
+.sidebar-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+    margin-left: 0;
+    cursor: pointer;
+}
+
+/* Sidebar Title (UM Clinic / UM HHEE) */
+.sidebar h2 {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 0;
+    font-size: 22px;
+}
+
+/* Sidebar Navigation */
+.sidebar ul {
+    list-style: none;
+    margin-left: -25%; /* shift list inward */
+}
+
+/* Sidebar Items */
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+/* Bottom Navigation (Help, Settings) */
+.bottom {
+    margin-top: auto; /* pushes to bottom */
+    margin-bottom: 5px;
+}
+
+/* Sidebar Links */
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    margin-left: 10px;
+}
+.sidebar ul li a:hover {
+    background: #dbab1b; /* gold hover effect */
+}
+
+/* ========= CARDS (inside main content) ========= */
+.cards-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap; /* wrap on smaller screens */
+}
+
+/* Individual Card */
+.card {
+    flex: 1;
+    min-width: 250px; /* prevent too small shrink */
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(37, 117, 252, 0.3);
+    border: 1px solid rgba(37, 117, 252, 0.5);
+}
+.card h2 {
+    color: #2575fc; /* blue section titles */
+    margin-bottom: 15px;
+}
+
+/* ========= MISC ========= */
+#ham-menu {
+    padding-right: 50px; /* special styling for hamburger menu */
+}
+
+/* ========= MAIN CONTENT CONTAINER ========= */
+.main-content {
+    flex: 1;               /* take remaining space beside sidebar */
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 20px 0 0 20px;
+    height: 100%; /*i add here DL*/
+}
+#main-content-dashboard{
+    background: url("STA Dashboard bg.png") no-repeat center center;
+    background-size: cover;
+}
+
+/* ========= LOGO + IMAGE SECTIONS (if needed) ========= */
+.logo-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.logo-container img {
+    width: 150px;
+    height: auto;
+}
+
+.backgroundimageText {
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+.backgroundimageText img {
+    width: 250px;
+    margin-bottom: 20px;
+    height: auto;
+}
+
+/* ========= CENTER ALIGN UTILITY ========= */
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* ========= SIDEBAR TOGGLE ========= */
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.main-content {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content.full {
+    margin-left: 0;
+}
+
+/*----------------INVENTORY STYLE------------*/
+#inventory-div{
+    /*background-color: palegreen;*/
+    background: #f9f9f9;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+#inv-header{
+    width: 100%;
+    height: 10%;
+    /*background-color: #2575fc;*/
+    display: flex;
+    justify-content: left;
+    padding-top: 5px;
+    margin-left: 5%;
+
+}
+
+
+.inv-btn{
+    background: #90210b;  /* red button */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    height: 30px;
+    width: 80px;
+    margin-right: 10px;
+}
+.inv-btn:hover{
+    background: #e63946; /* darker red hover */
+}
+/*TABLE PART*/
+#table{
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background: #90210b;
+    color: white;
+}
+
+/* ========= FIX HORIZONTAL SCROLL ISSUE ========= */
+html, body {
+    overflow-x: hidden;
+}
+
+.main-content {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#inv-header {
+    padding-left: 5%;   /* reduced from 10% */
+    padding-right: 5%;
+    box-sizing: border-box;
+}
+
+#table {
+    max-width: 100%;
+    table-layout: auto;
+}

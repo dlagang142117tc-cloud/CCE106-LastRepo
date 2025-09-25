@@ -1,0 +1,265 @@
+/* ===== Global Styles ===== */
+
+
+body {
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    
+    background: linear-gradient(135deg, #ba600d, #1c3674); /* purple → blue gradient */
+    
+    color: #333;
+    
+    min-height: 100vh;
+    
+    
+    
+    justify-content: center;
+    
+    align-items: center;
+    
+    }
+    
+    /* ===== Login Box ===== */
+    
+    .login-box {
+    
+    background: white;
+    
+    padding: 25px 30px;
+    
+    width: 320px;
+    
+    border-radius: 12px;
+    
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    
+    text-align: center;
+    
+    animation: fadeIn 0.6s ease-in-out;
+    
+    
+    
+    
+    
+    }
+    
+    .login-box h2 {
+    
+    color: #2575fc;
+    
+    margin-bottom: 20px;
+    
+    }
+    
+    /* ===== Inputs ===== */
+    
+    input, select {
+    
+    width: 100%;
+    
+    padding: 10px;
+    
+    margin: 8px 0;
+    
+    border: 2px solid #ddd;
+    
+    border-radius: 8px;
+    
+    outline: none;
+    
+    transition: 0.3s;
+    
+    }
+    
+    input:focus, select:focus {
+    
+    border-color: #6a11cb;
+    
+    box-shadow: 0 0 5px rgba(106,17,203,0.4);
+    
+    }
+    
+    /* ===== Buttons ===== */
+    
+    button {
+    
+    width: 100%;
+    
+    padding: 10px;
+    
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    
+    color: white;
+    
+    border: none;
+    
+    border-radius: 8px;
+    
+    font-weight: bold;
+    
+    cursor: pointer;
+    
+    transition: 0.3s;
+    
+    }
+    
+    button:hover {
+    
+    transform: scale(1.05);
+    
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    
+    }
+    
+    /* ===== Error Message ===== */
+    
+    .error {
+    
+    color: #e74c3c;
+    
+    font-weight: bold;
+    
+    margin: 10px 0;
+    
+    }
+    
+    .dashboard-container {
+    
+    display: flex;
+    
+    min-height: 100vh;
+    
+    }
+    
+    /* Sidebar */
+    
+    .sidebar {
+    
+    width: 240px;
+    
+    background: linear-gradient(135deg, #9f501b, #ced7e5);
+    
+    color: white;
+    
+    padding: 20px;
+    
+    display: flex;
+    
+    flex-direction: column;
+    
+    border-top-right-radius: 20px;
+    
+    border-bottom-right-radius: 20px;
+    flex-shrink: 0;
+    
+    }
+    
+    .sidebar h2 {
+    
+    text-align: center;
+    
+    margin-bottom: 20px;
+    
+    font-size: 22px;
+    
+    }
+    
+    .sidebar ul {
+    
+    list-style: none;
+    
+    }
+    
+    .sidebar ul li {
+    
+    margin: 15px 0;
+    
+    }
+    
+    .sidebar ul li a {
+    
+    text-decoration: none;
+    
+    color: white;
+    
+    font-weight: 500;
+    
+    display: block;
+    
+    padding: 10px;
+    
+    border-radius: 8px;
+    
+    transition: background 0.3s;
+    
+    }
+    
+    .sidebar ul li a:hover {
+    
+    background: rgba(255,255,255,0.2);
+    
+    }
+    
+    /* Main Content */
+    
+    .main-content {
+    
+    flex: 1;
+    
+    background: #f9f9f9;
+    
+    padding: 30px;
+    
+    border-radius: 20px 0 0 20px;
+    
+    }
+    
+    .main-content h1 {
+    
+    color: #2575fc;
+    
+    margin-bottom: 15px;
+    
+    }
+    
+    .logo-container {
+    
+    text-align: center;
+    
+    margin-bottom: 15px;
+    
+    }
+    
+    .logo-container img {
+    
+    width: 150px; /* adjust size */
+    
+    height: auto;
+    
+    }
+    
+    .backgroundimageText {
+    
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 0px;
+    
+    }
+    
+    .backgroundimageText img {
+    
+    width: 250px; /* adjust size */
+    
+    margin-bottom: 20px;
+    
+    height: auto;
+    
+    }
+    
+    .center-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }

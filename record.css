@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+    display: flex;              /* put sidebar and content side by side */
+    min-height: 100vh;          /* make body fill full screen */
+    font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100vh;              /* full height of screen */
+    background: #90210b;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-shrink: 0;
+}
+
+/* Sidebar title */
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+/* Sidebar nav */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    margin: 15px 0;
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+.sidebar ul li a:hover {
+    background: #dbab1b;
+}
+
+/* Main content */
+.main {
+    flex: 1;                     /* take remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;         /* center horizontally */
+    justify-content: flex-start; /* top alignment */
+    padding: 20px;
+}
+
+/* Table */
+table { 
+    border-collapse: separate;      /* Keeps spacing */
+    border-spacing: 10px 8px;       /* Horizontal & vertical spacing between cells */
+    width: 500px;                     /* Stretch wider (adjust as needed) */
+    background-color: #c40703; 
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;             /* Center text */
+}
+
+/* Table container */
+.record {
+    width: 90%;                  /* makes table wide */
+    margin: 20px auto;           /* center horizontally */
+    overflow-x: auto;            /* scroll if too wide */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;   /* cleaner borders */
+    font-size: 16px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Header row */
+table th {
+    background-color: #c40703;   /* dark red */
+    color: white;
+    padding: 40px;
+    text-transform: capitalize;
+    border: 1px solid #ddd;
+}
+
+/* Table rows */
+table td {
+    padding: 30px;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+/* Alternate row coloring for readability */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ========= TOP HEADER (inside main-content) ========= */
+.top-header {
+    display: flex;
+    justify-content: space-between; /* spread sections */
+    align-items: center;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+}
+
+/* Split into 3 columns */
+.top-header-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.top-header-center {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* center RECORDS */
+    align-items: center;
+    text-align: center;
+}
+
+.top-header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-header h1 {
+    color: #c40703;
+    font-size: 22px;
+    margin: 0;
+}
+
+/* Hamburger button */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.icon-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Logout Button */
+.logout-btn {
+    background: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.logout-btn:hover {
+    background: #e63946;
+}
+
+
+
+
+
+/* ========= SIDEBAR TOGGLE ========= */
+/*PARA MOLIHOK BITCH ASS AYAW HILABTI*/
+.sidebar {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.main-content {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content.full {
+    margin-left: 0;
+}

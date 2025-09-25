@@ -1,0 +1,185 @@
+body, html {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #333;
+  min-height: 100vh;
+  margin:0;
+  padding:0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url(asset/images/final-student-bg.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  padding-left: 0;
+}
+
+.dashboard-container.with-sidebar-open { padding-left: 0; }
+
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  margin-bottom: 30px;
+}
+.top-header h1 { color: black; font-size: 32px; margin-left: 15px; }
+.welcome-text p { margin-top: 10px; font-weight: bold; margin-left: 25px; }
+
+.header-actions { display: flex; gap: 15px; align-items: center; }
+.icon-btn { background: none; border: none; font-size: 22px; cursor: pointer; transition: transform 0.2s; }
+.icon-btn:hover { transform: scale(1.2); }
+.logout-btn { background: #ff4b5c; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.logout-btn:hover { background: #e63946; }
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #293646;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0; left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+  z-index: 10000;
+  overflow: hidden;
+  will-change: transform;
+}
+.sidebar.open { transform: translateX(0); }
+
+.sidebar-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+  opacity: 0; visibility: hidden; transition: opacity 0.5s ease-in-out; z-index: 9999;
+}
+.sidebar-overlay.visible { 
+  opacity: 1; 
+  visibility: visible; 
+}
+
+.sidebar-launcher { 
+  position: fixed; 
+  top: 12px; 
+  left: 12px;
+  z-index: 10002;
+  padding: 6px 10px; 
+  border: none; 
+  background: transparent; 
+  cursor: pointer; }
+
+.sidebar h2 { 
+  color: #b32424; 
+  text-align: center; 
+  width: 100%;
+  margin: 20px 0; 
+  font-size:35px;
+  font-family: 'Droid  Serif'; 
+}
+.sidebar ul { 
+  list-style: none; 
+  margin-left: -25%; 
+}
+.sidebar ul li {
+   margin: 15px 0; 
+}
+.bottom { 
+  margin-top: auto; 
+  margin-bottom: 5px;
+}
+.sidebar ul li a {
+   text-decoration: none; 
+   color: white; 
+   font-weight: 500; 
+   display: block; 
+   padding: 10px 12px;
+   border-radius: 8px; 
+   transition: background 0.3s; 
+   margin-left: 10px; 
+}
+.sidebar ul li a:hover {
+   background: #dbab1b;
+}
+
+.main-content { 
+  flex: 1; 
+  padding: 30px; 
+  position: relative;
+}
+
+/* Cards and tables */
+.cards-container { 
+  display: flex;
+  gap: 30px; 
+  margin-top: 20px;
+  margin-left: 50px; 
+  flex-wrap: wrap; 
+}
+.card { 
+  flex: 1; 
+  min-width: 250px; 
+  background: #ffffff; 
+  padding: 20px; 
+  border-radius: 15px; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+  border: 1px solid #e5e7eb; 
+  transition: all 0.5s ease-in-out; 
+}
+.card:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15); 
+  border: 1px solid #d1d5db; 
+}
+.card h2 { 
+  color: black; 
+  margin-bottom: 15px; 
+}
+
+.schedule-section { 
+  margin: 0 50px; 
+}
+.schedule-header { 
+  display:flex; 
+  justify-content: space-between; 
+  align-items:center; 
+  margin-bottom: 15px; 
+}
+.schedule-header h2 { 
+  margin: 0; 
+}
+
+.table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  background: #fff; 
+  border-radius: 12px; 
+  overflow:hidden; 
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+}
+.table th, .table td { 
+  padding: 12px 14px; 
+  border-bottom: 1px solid #eee; 
+  text-align: left; 
+}
+
+.table th { 
+  background: #f7f7f7; 
+  font-weight: 700; 
+}
+.table tr:hover { background: #fafafa; }
+.status { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.status.upcoming { background: #e1f5fe; color: #0277bd; }
+.status.done { background: #e8f5e9; color: #2e7d32; }
+.status.cancelled { background: #ffebee; color: #c62828; }
+

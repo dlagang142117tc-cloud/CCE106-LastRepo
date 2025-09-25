@@ -1,0 +1,444 @@
+body, html {
+
+font-family: "Segoe UI", Arial, sans-serif;
+color: #333;
+min-height: 100vh;
+margin:0;
+padding:0;
+height: 100%;
+display: flex;
+flex-direction: column;
+
+ /* Page-wide background image so it doesn't shift with layout paddings/margins */
+ background-image: url(asset/images/final-student-bg.png);
+ background-position: center center;
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-attachment: fixed;
+
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  /* Sidebar fully hidden when closed */
+  padding-left: 0;
+}
+
+/* Space for fixed sidebar overlap when open */
+.dashboard-container.with-sidebar-open {
+  /* Keep content fixed; sidebar overlays instead of pushing */
+  padding-left: 0;
+}
+
+/* Top Header Container */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    margin-bottom: 50px;
+}
+
+/* Welcome Text */
+.top-header h1 {
+    color: black;
+    font-size: 35px;
+    margin-left: 15px;
+   
+    
+}   
+
+.welcome-text p{
+    margin-top: 10px;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+
+
+/* Right side icons/buttons */
+.header-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Notification Icon */
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.icon-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Logout Button */
+.logout-btn {
+    background: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #e63946;
+}
+
+/* Sidebar */
+
+.sidebar {
+
+  width: 240px;
+  height: 100vh;
+  background: #293646; /* keep background during entire slide; sidebar is off-screen when closed */
+
+  color: white;
+
+  padding: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+  
+  border-top-right-radius: 20px;
+
+  border-bottom-right-radius: 20px;
+  flex-shrink: 0;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%); /* fully hidden when closed */
+  transition: transform 0.5s ease-in-out;
+  z-index: 10000;
+  overflow: hidden; /* ensure children never extend beyond sidebar bounds during slide */
+  will-change: transform;
+  
+}
+
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* when closed it is fully hidden; no pointer cursor needed */
+
+
+
+
+/* Overlay behind sidebar when open */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.sidebar-logo {
+    width: 30px;               /* adjust size */
+    height: auto;
+    margin-right: 10px; 
+    margin-left: 0;
+    cursor: pointer;
+    
+    
+}
+
+/* Launcher button shown when sidebar is hidden */
+.sidebar-launcher {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10002;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+/* background is already defined on .sidebar, no need to restyle on open */
+
+.sidebar h2 {  
+  color: #b32424;
+  text-align: center;
+  width: 100%;
+  margin: 20px 0px;
+  font-size:35px;
+  font-family: 'Droid  Serif';
+  
+
+}
+
+/* When sidebar is open, position the title next to the launcher icon (left:12px, width:40px) */
+/* Title remains centered by default; no special positioning when open */
+
+.sidebar ul {
+  list-style: none;
+  margin-left: -25%; /* restored original offset */
+}
+
+.sidebar ul li {
+
+  margin: 15px 0;
+
+}
+.bottom {
+    margin-top: auto;
+    margin-bottom: 5px;
+    
+    
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 0.3s;
+  margin-left: 10px; /* original spacing restored */
+}
+
+.sidebar ul li a:hover {
+
+  background: #dbab1b;
+
+}
+.cards-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+  margin-left: 50px;
+  flex-wrap: wrap; /* so it goes to next row on small screens */
+}
+
+.card {
+  flex: 1;
+  min-width: 250px; /* so they don’t shrink too small */
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border: 1px solid #d1d5db;
+    
+}
+
+.card h2 {
+  color: black;
+  margin-bottom: 15px;
+}
+
+
+#ham-menu{
+  padding-right: 50px;
+} /*END HERE*/
+
+/* Main Content */
+
+.main-content {
+
+  flex: 1;
+  padding: 30px;
+  position: relative;
+  
+}
+
+/* Toggle button */
+.sidebar-toggle {
+  background: #293646;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+
+
+.logo-container {
+
+  text-align: center;
+
+  margin-bottom: 15px;
+
+}
+
+.logo-container img {
+
+  width: 150px;
+  /* adjust size */
+
+  height: auto;
+
+}
+
+.backgroundimageText {
+
+  text-align: center;
+  margin-top: 0px;
+  margin-left: 0px;
+
+}
+
+.backgroundimageText img {
+
+  width: 250px;
+  /* adjust size */
+
+  margin-bottom: 20px;
+
+  height: auto;
+
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+/* Footer */
+ .footer {
+      background-color: #b32424; /* Red */
+      color: white;
+      padding: 10px 60px 0 60px;
+       isolation: isolate; /* contain blend effects */
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      padding-bottom: 10px;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 0;
+      position: relative; /* for center divider */
+    }
+
+    /* centered vertical gold divider */
+    .footer-content::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      background: #d4af37;
+    }
+
+    /* Left Side */
+    .footer-left {
+      flex: 1 1 55%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left img {
+      height: 70px;
+      vertical-align: middle;
+      background: transparent;
+    }
+
+    .footer-left h2 {
+      display: block;
+      margin: 0;
+      font-size: 70px;
+      font-weight: bold;
+      line-height: 1;
+      font-family: 'Droid  Serif';
+    }
+
+    .footer-left p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1;
+      font-family: 'Arial', sans-serif;
+      flex-basis: 100%;
+      text-align: center;
+    }
+    .footer-left p:first-of-type {
+      font-family: 'Droid Serif';
+    }
+
+    /* Right Side */
+    .footer-right {
+      flex: 1 1 35%;
+      padding-left: 20px; /* small gap from center line */
+      
+    }
+
+    .footer-left {
+      padding-right: 20px; /* small gap from center line */
+    }
+
+    .footer-right h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .footer-right ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .footer-right ul li {
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid white;
+    }
+
+    /* Bottom Bar */
+    .footer-bottom {
+      background-color: #d4af37; /* Gold */
+      color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 60px;
+      margin-left: -60px;
+      margin-right: -60px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .footer-bottom .left {
+      font-size: 13px;
+      font-weight: normal;
+    }
+
