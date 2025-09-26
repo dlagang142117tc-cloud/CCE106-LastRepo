@@ -25,7 +25,7 @@ if (!isset($_SESSION['role'])) {
                 <!-- CHECK ROLE AND DEPEND ON THAT THE SIDE BAR WILL ADJUST (STAFF/STA) -->
                 <?php if ($_SESSION['role'] === 'staff'): ?>
                     <li><a href="staff_dashboard.php">🏠 Dashboard</a></li>
-                    <li><a href="">➕ Add New Records</a></li>
+                    <li><a href="">➕ Medical Records</a></li>
                     <li><a href="inventory.php">📦 Manage Inventory</a></li>
                     <li><a href="record.php">👨🏻‍⚕️ Manage Patients</a></li>
                     <li><a href="#">📅 Appointments</a></li>

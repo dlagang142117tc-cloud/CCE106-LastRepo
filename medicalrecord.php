@@ -57,6 +57,7 @@ $role = $_SESSION['role'];
 
       <!-- STUDENT INFO -->
       <div class="patient-div">
+            <h2 class="section-title">PATIENT INFO</h2>
             <div class="action-buttons">
             <button class="add-btn">Add</button>
             <button class="edit-btn">Edit</button>

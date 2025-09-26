@@ -1,0 +1,251 @@
+body, html {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #293646;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 10000;
+    overflow: hidden;
+    will-change: transform;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+  }
+  
+  .sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .sidebar-launcher {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 10002;
+    padding: 6px 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .sidebar h2 {  
+    color: #b32424;
+    text-align: center;
+    width: 100%;
+    margin: 20px 0;
+    font-size: 35px;
+    font-family: 'Droid Serif';
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    margin-left: -25%;
+  }
+  
+  .sidebar ul li {
+    margin: 15px 0;
+  }
+  
+  .bottom {
+    margin-top: auto;
+    margin-bottom: 5px;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    margin-left: 10px;
+  }
+  
+  .sidebar ul li a:hover {
+    background: #dbab1b;
+  }
+  
+  /* ========== MAIN CONTENT ========== */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+  }
+  
+  /* wrapper for centered layout */
+  .main-content {
+    margin-left: 240px;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .main-content.full {
+    margin-left: 0;
+  }
+  
+  /* optional centered wrapper (if you want everything aligned neatly) */
+  .content-wrap {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 8px;
+  }
+  
+  /* ========== TOP HEADER ========== */
+  .top-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .top-header .icon-btn {
+    position: absolute;
+    left: 25px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .top-header .icon-btn:hover {
+    transform: scale(1.2);
+  }
+  
+  .top-header .header-actions {
+    position: absolute;
+    right: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* Page Title */
+  .top-header h1 {
+    color: #b32424;
+    font-size: 26px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    background: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .logout-btn:hover {
+    background: #e63946;
+  }
+  
+  /* ========== RECORD SECTION ========== */
+  .record {
+    width: 90%;
+    margin: 0 auto;
+    padding: 6px 0 40px;
+  }
+  
+  /* Container for table + buttons */
+  .patient-div {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 15px 0;
+  }
+  
+  .add-btn, .edit-btn, .delete-btn {
+    background: #7a0909;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .add-btn:hover, .edit-btn:hover, .delete-btn:hover {
+    background: #b32424;
+  }
+  
+  /* ========== TABLE STYLING ========== */
+  table { 
+    width: 100%; 
+    border-collapse: collapse;
+    font-size: 16px; 
+    text-align: center; 
+    background-color: white; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+  } 
+  
+  table th { 
+    background-color: #b32424;
+    color: white;
+    padding: 30px; 
+    text-transform: capitalize; 
+    border: 1px solid #ddd; 
+  }
+  
+  table td {
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    color: #333; 
+  }
+  
+  table tr:nth-child(even){ 
+    background-color: #f9f9f9; 
+  }
+  
