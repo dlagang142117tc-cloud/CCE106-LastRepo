@@ -1,124 +1,119 @@
 <?php
 session_start();
-if(!isset($_SESSION['role'])) {
+
+if (!isset($_SESSION['role'])) {
     header("Location: index.php");
     exit();
 }
+
+$role = $_SESSION['role'];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="staffdash.css?v=<?php echo time(); ?>">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinic Records</title>
+  <link rel="stylesheet" href="appointment.css" />
 </head>
 <body>
 <div class="dashboard-container">
 
-         <!-- Sidebar -->
-         <div class="sidebar" id="appSidebar">
-            <h2 class="js-sidebar-trigger">UM CLINIC</h2>
-
+    <!-- Sidebar -->
+    <div class="sidebar" id="appSidebar">
+         <h2 class="js-sidebar-trigger">UM CLINIC</h2>
             <ul>
-                <!-- CHECK ROLE AND DEPEND ON THAT THE SIDE BAR WILL ADJUST (STAFF/STA) -->
-                <?php if ($_SESSION['role'] === 'staff'): ?>
+            <?php if ($_SESSION['role'] === 'staff'): ?>
                     <li><a href="staff_dashboard.php">🏠 Dashboard</a></li>
                     <li><a href="medicalrecord.php">➕ Medical Records</a></li>
                     <li><a href="inventory.php">📦 Manage Inventory</a></li>
                     <li><a href="record.php">👨🏻‍⚕️ Manage Patients</a></li>
-                    <li><a href="appointment.php">📅 Appointments</a></li>
-
+                    <li><a href="#">📅 Appointments</a></li>
                 <?php elseif ($_SESSION['role'] === 'sta'): ?>
                     <li><a href="sta_dashboard.php">🏠 Dashboard</a></li>
                     <li><a href="inventory.php">📦 View Inventory</a></li>
                     <li><a href="record.php">📋 View Records</a></li>
-                    <li><a href="">➕ Add New Record</a></li>
+                    <li><a href="medicalrecord.php">➕ Medical History</a></li>
                 <?php endif; ?>
             </ul>
-        </div>
+    </div>
 
-        <!-- Sidebar Overlay (click to close) -->
-        <div class="sidebar-overlay"></div>
+    <!-- Overlay -->
+    <div class="sidebar-overlay"></div>
 
-        <!-- Sidebar Launcher (logo button) -->
-        <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-            <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
-        </button>
+    <!-- Launcher -->
+    <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
+        <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
+    </button>
 
-    <!-- Main Content -->
-    <div class="main-content">
+    <!-- === MAIN CONTENT === -->
+    <div class="main">
+
+        <!-- Top Header -->
         <div class="top-header">
             <div class="welcome-text">
-                <h1>
-                    Welcome, 
-                    <?php 
-                        echo isset($_SESSION['name']) ? $_SESSION['name'] : ucfirst($_SESSION['role']); 
-                    ?>!
-                </h1>
-                <p>This is your <?php echo $_SESSION['role']; ?> dashboard page.</p>
-            </div> 
+                <h1>APPOINTMENTS</h1>
+            </div>
             <div class="header-actions">
-                <!-- Logout Button -->
                 <form action="logout.php" method="POST" style="display:inline;">
                     <button type="submit" class="logout-btn">Logout</button>
                 </form>
             </div>
-        </div>       
+        </div>
 
-        <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
-            <div class="cards-container">
-                <div class="card">
-                    <h2>📅 Next Appointment</h2>
-                    <p>Date: <strong>September 15, 2025</strong></p>
-                    <p>Doctor: <strong>Dr. Santos</strong></p>
-                    <p>Reason: <strong>General Checkup</strong></p>
+        <!-- Records -->
+        <div class="record">
+            <div class="patient-div">
+                <div class="action-buttons">
+                    <button class="add-btn">Add</button>
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
                 </div>
-                <div class="card">
-                    <h2>📜 Visit History</h2>
-                    <ul>
-                        <li>Aug 12, 2025 - Flu Consultation</li>
-                        <li>Jul 22, 2025 - Blood Pressure Check</li>
-                        <li>Jun 15, 2025 - Medical Certificate Request</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h2>👤 Profile</h2>
-                    <p>Name: <?php echo $_SESSION['name'] ?? "N/A"; ?></p>
-                    <p>Student ID: 2025-12345</p>
-                    <p>Course: BSIT</p>
-                </div>
-            </div>
-        <?php else: ?>
-        <div class="reports">
-            <h2 class=monthly>Monthly reports</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <h2>📑 Coughing Blood </h2>
-                    <p>Paul Daniel</p>
-                    <p>Student - 144569</p>
-                    <p>BSIT</p>
-                </div>
-                <div class="card">
-                    <h2>📑 Diarrhea </h2>
-                    <p>Denns Lagang</p>
-                    <p>Student - 144669</p>
-                    <p>BSIT</p>
-                </div>
-                <div class="card">
-                    <h2>📑 Headache </h2>
-                    <p>Marc Jason</p>
-                    <p>Student - 144769</p>
-                    <p>BSIT</p>
-                </div>
+
+                <table class="student">
+                    <tr>
+                        <th>Name</th>
+                        <th>Staff</th>
+                        <th>Last Consultation</th>
+                        <th>Next Consultation</th>
+                        <th>Doctor</th>
+                    </tr>
+                    <tr>
+                        <td>Marc Jason Alagase</td>
+                        <td>Sir Delacruz</td>
+                        <td>09-20-2025</td>
+                        <td>09-30-2025</td>
+                        <td>Doc. Willie Ong</td>
+                    </tr>
+                    <tr>
+                        <td>Kaichi Espiritu</td>
+                        <td>Sir Doidoi</td>
+                        <td>09-21-2025</td>
+                        <td>10-11-2025</td>
+                        <td>Doc. Santos</td>
+                    </tr>
+                    <tr>
+                        <td>Denns Lagang</td>
+                        <td>Sir Neil</td>
+                        <td>09-20-2025</td>
+                        <td>09-25-2025</td>
+                        <td>Doc. Dela Cruz</td>
+                    </tr>
+                    <tr>
+                        <td>Jack Daray</td>
+                        <td>Sir Aguilar</td>
+                        <td>09-20-2025</td>
+                        <td>09-30-2025</td>
+                        <td>Doc. Cenita</td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <?php endif; ?>
     </div>
-
 </div>
- <!-- Sidebar Script -->
- <script>
+
+  <script>
         (function() {
             var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
             var sidebar = document.getElementById('appSidebar');
