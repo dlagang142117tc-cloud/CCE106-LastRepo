@@ -4,15 +4,17 @@ if (!isset($_SESSION['role'])) {
     header("Location: index.php");
     exit();
 }
+// Determine current page to highlight active menu item
+$currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Inventory</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+    <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 
 <body>
@@ -25,17 +27,17 @@ if (!isset($_SESSION['role'])) {
             <ul>
                 <!-- CHECK ROLE AND DEPEND ON THAT THE SIDE BAR WILL ADJUST (STAFF/STA) -->
                 <?php if ($_SESSION['role'] === 'staff'): ?>
-                    <li><a href="staff_dashboard.php">🏠 Dashboard</a></li>
-                    <li><a href="">➕ Medical Records</a></li>
-                    <li><a href="inventory.php">📦 Manage Inventory</a></li>
-                    <li><a href="record.php">👨🏻‍⚕️ Manage Patients</a></li>
-                    <li><a href="#">📅 Appointments</a></li>
+                    <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
+                    <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
+                    <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
+                    <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
+                    <li><a href="appointment.php" class="<?php echo ($currentPage === 'appointment.php') ? 'active' : ''; ?>">📅 Appointments</a></li>
 
                 <?php elseif ($_SESSION['role'] === 'sta'): ?>
-                    <li><a href="sta_dashboard.php">🏠 Dashboard</a></li>
-                    <li><a href="inventory.php">📦 View Inventory</a></li>
-                    <li><a href="record.php">📋 View Records</a></li>
-                    <li><a href="">➕ Add New Record</a></li>
+                    <li><a href="sta_dashboard.php" class="<?php echo ($currentPage === 'sta_dashboard.php') ? 'active' : ''; ?>">🏠 STA Dashboard</a></li>
+                    <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 View Inventory</a></li>
+                    <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">📋 View Records</a></li>
+                    <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical History</a></li>
                 <?php endif; ?>
             </ul>
             <ul class="bottom">
@@ -48,7 +50,7 @@ if (!isset($_SESSION['role'])) {
 
         <!-- Sidebar Launcher (logo button) -->
         <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-            <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
+            <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
         </button>
 
 

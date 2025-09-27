@@ -42,14 +42,6 @@ body, html {
     align-items: center;
 }
 
-/* Notification Bell */
-.icon-btn {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
 .icon-btn:hover {
     transform: scale(1.2); /* hover zoom effect */
 }
@@ -72,68 +64,150 @@ body, html {
 /* ========= SIDEBAR ========= */
 .sidebar {
     width: 240px;
-    /*height: 100vh;*/
-    height: 100%; /*DL ADDED HERE*/
-    background: #90210b;   /* dark red */
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    flex-shrink: 0; /* sidebar stays fixed size */
-}
+   height: 100vh;
+   background: #90210b; /* keep background during entire slide; sidebar is off-screen when closed */
+   color: white;
+   padding: 30px;
+   display: flex;
+   flex-direction: column;
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
+   flex-shrink: 0;
+   position: fixed;
+   top: 0;
+   left: 0;
+   transform: translateX(-100%); /* fully hidden when closed */
+   transition: transform 0.5s ease-in-out;
+   z-index: 10000;
+   overflow: hidden; /* ensure children never extend beyond sidebar bounds during slide */
+   will-change: transform;
+   
+ }
+ 
+ 
+ .sidebar.open {
+   transform: translateX(0);
+ }
+ 
+ /* when closed it is fully hidden; no pointer cursor needed */
+ 
+ 
+ 
+ 
+ /* Overlay behind sidebar when open */
+ .sidebar-overlay {
+   position: fixed;
+   inset: 0;
+   background: rgba(0,0,0,0.3);
+   opacity: 0;
+   visibility: hidden;
+   transition: opacity 0.5s ease-in-out;
+   z-index: 9999;
+ }
+ 
+ .sidebar-overlay.visible {
+   opacity: 1;
+   visibility: visible;
+ }
+ 
+ 
+ .sidebar-logo {
+     width: 30px;               /* adjust size */
+     height: auto;
+     margin-right: 10px; 
+     margin-left: 0;
+     cursor: pointer;
+     
+     
+ }
+ 
+ /* Launcher button shown when sidebar is hidden */
+ .sidebar-launcher {
+   position: fixed;
+   top: 12px;
+   left: 12px;
+   z-index: 10002;
+   padding: 6px 10px;
+   border: none;
+   background: transparent;
+   cursor: pointer;
+ }
+ /* background is already defined on .sidebar, no need to restyle on open */
+ 
+ .sidebar h2 {  
+     display: flex;
+     text-align: center;
+     align-items: center;
+     margin-bottom: 20px;
+     margin-left: 0;
+     font-size: 22px;
+     font-family: 'Droid Serif';
+     font-size: 35px;
+ }
+ 
+ /* When sidebar is open, position the title next to the launcher icon (left:12px, width:40px) */
+ /* Title remains centered by default; no special positioning when open */
+ 
+ .sidebar ul {
+   list-style: none;
+   margin-left: -25%; /* restored original offset */
+ }
+ 
+ .sidebar ul li {
+ 
+   margin: 15px 0;
+ 
+ }
+ .bottom {
+     margin-top: auto;
+     margin-bottom: 5px;
+     
+     
+ }
+ 
+ .sidebar ul li a { 
+   text-decoration: none;
+   color: white;
+   font-weight: 500;
+   display: block;
+   padding: 10px 12px;
+   border-radius: 8px;
+   transition: background 0.3s;
+   margin-left: 10px; /* original spacing restored */
+ }
+ 
+ .sidebar ul li a:hover {
+ 
+   background: #dbab1b;
+ 
+ }
 
-/* Sidebar Logo (small icon before UM Clinic text) */
-.sidebar-logo {
-    width: 30px;
-    height: auto;
-    margin-right: 10px;
-    margin-left: 0;
-    cursor: pointer;
-}
-
-/* Sidebar Title (UM Clinic / UM HHEE) */
-.sidebar h2 {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: 0;
-    font-size: 22px;
-}
-
-/* Sidebar Navigation */
-.sidebar ul {
-    list-style: none;
-    margin-left: -25%; /* shift list inward */
-}
-
-/* Sidebar Items */
-.sidebar ul li {
-    margin: 15px 0;
-}
-
-/* Bottom Navigation (Help, Settings) */
-.bottom {
-    margin-top: auto; /* pushes to bottom */
-    margin-bottom: 5px;
-}
-
-/* Sidebar Links */
-.sidebar ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    display: block;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background 0.3s;
-    margin-left: 10px;
-}
-.sidebar ul li a:hover {
-    background: #dbab1b; /* gold hover effect */
-}
+ /* Active/current page link */
+.sidebar ul li a.active {
+    background: #d4af37; /* gold */
+    color: #000; /* readable on gold */
+    font-weight: 700;
+    position: relative;
+  }
+  
+  /* Left indicator bar for active item */
+  .sidebar ul li a.active::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 24px;
+    background: #ffffff;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  /* Keep hover from overriding active style */
+  .sidebar ul li a:hover:not(.active) {
+    background: #dbab1b;
+    color: #000;
+  }
 
 /* ========= CARDS (inside main content) ========= */
 .cards-container {
@@ -181,7 +255,7 @@ body, html {
     height: 100%; /*i add here DL*/
 }
 #main-content-dashboard{
-    background: url("STA Dashboard bg.png") no-repeat center center;
+    background: url("asset/images/STADashboard-bg.png") no-repeat center center;
     background-size: cover;
 }
 
@@ -234,140 +308,7 @@ body, html {
   padding-left: 0;
 }
 
-.sidebar {
 
-  width: 240px;
-  height: 100vh;
-  background: #90210b; /* keep background during entire slide; sidebar is off-screen when closed */
-
-  color: white;
-
-  padding: 20px;
-
-  display: flex;
-
-  flex-direction: column;
-  
-  border-top-right-radius: 20px;
-
-  border-bottom-right-radius: 20px;
-  flex-shrink: 0;
-  
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translateX(-100%); /* fully hidden when closed */
-  transition: transform 0.5s ease-in-out;
-  z-index: 10000;
-  overflow: hidden; /* ensure children never extend beyond sidebar bounds during slide */
-  will-change: transform;
-  
-}
-
-
-.sidebar.open {
-  transform: translateX(0);
-}
-
-/* when closed it is fully hidden; no pointer cursor needed */
-
-
-
-
-/* Overlay behind sidebar when open */
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 9999;
-}
-
-.sidebar-overlay.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-
-.sidebar-logo {
-    width: 30px;               /* adjust size */
-    height: auto;
-    margin-right: 10px; 
-    margin-left: 0;
-    cursor: pointer;
-    
-    
-}
-
-/* Launcher button shown when sidebar is hidden */
-.sidebar-launcher {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 10002;
-  padding: 6px 10px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-/* background is already defined on .sidebar, no need to restyle on open */
-
-.sidebar h2 {  
-  color: white;
-  text-align: center;
-  width: 100%;
-  margin: 20px 0px;
-  font-size:35px;
-  font-family: 'Droid  Serif';
-  
-
-}
-
-/* When sidebar is open, position the title next to the launcher icon (left:12px, width:40px) */
-/* Title remains centered by default; no special positioning when open */
-
-.sidebar ul {
-  list-style: none;
-  margin-left: -25%; /* restored original offset */
-}
-
-.sidebar ul li {
-
-  margin: 15px 0;
-
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  display: block;
-  padding: 10px 12px;
-  border-radius: 8px;
-  transition: background 0.3s;
-  margin-left: 10px; /* original spacing restored */
-}
-
-.sidebar ul li a:hover {
-
-  background: #dbab1b;
-
-}
-/* Toggle button */
-.sidebar-toggle {
-  background: #293646;
-  color: #ffffff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.sidebar h2{ /* To ajust down a liitle the UM CLINIC h2 in the side bar */
-    padding-top: 8%;
-}
 
 /*==================================================INVENTORY STYLE==============================================================*/
 #inventory-div{
