@@ -35,7 +35,7 @@ if (!isset($_SESSION['username'])) {
             </ul>
             
         </div>   
-          
+        
         <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
             <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
         </button> 

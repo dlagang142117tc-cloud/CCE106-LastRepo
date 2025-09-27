@@ -215,31 +215,161 @@ body, html {
     min-height: 100vh;
 }
 
-/* ========= SIDEBAR TOGGLE ========= */
+/*=============================================== ALL CSS DENNS PART===========================================================*/
+
+
+
+/*================================================ALL FOR SIDEBAR=============================================================*/
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  /* Sidebar fully hidden when closed */
+  padding-left: 0;
+}
+
+/* Space for fixed sidebar overlap when open */
+.dashboard-container.with-sidebar-open {
+  /* Keep content fixed; sidebar overlays instead of pushing */
+  padding-left: 0;
+}
+
 .sidebar {
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 1000;
+
+  width: 240px;
+  height: 100vh;
+  background: #90210b; /* keep background during entire slide; sidebar is off-screen when closed */
+
+  color: white;
+
+  padding: 20px;
+
+  display: flex;
+
+  flex-direction: column;
+  
+  border-top-right-radius: 20px;
+
+  border-bottom-right-radius: 20px;
+  flex-shrink: 0;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%); /* fully hidden when closed */
+  transition: transform 0.5s ease-in-out;
+  z-index: 10000;
+  overflow: hidden; /* ensure children never extend beyond sidebar bounds during slide */
+  will-change: transform;
+  
 }
 
-.sidebar.closed {
-    transform: translateX(-100%);
+
+.sidebar.open {
+  transform: translateX(0);
 }
 
-.main-content {
-    margin-left: 240px;
-    transition: margin-left 0.3s ease-in-out;
+/* when closed it is fully hidden; no pointer cursor needed */
+
+
+
+
+/* Overlay behind sidebar when open */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 9999;
 }
 
-.main-content.full {
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.sidebar-logo {
+    width: 30px;               /* adjust size */
+    height: auto;
+    margin-right: 10px; 
     margin-left: 0;
+    cursor: pointer;
+    
+    
 }
 
-/*----------------INVENTORY STYLE------------*/
+/* Launcher button shown when sidebar is hidden */
+.sidebar-launcher {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10002;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+/* background is already defined on .sidebar, no need to restyle on open */
+
+.sidebar h2 {  
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin: 20px 0px;
+  font-size:35px;
+  font-family: 'Droid  Serif';
+  
+
+}
+
+/* When sidebar is open, position the title next to the launcher icon (left:12px, width:40px) */
+/* Title remains centered by default; no special positioning when open */
+
+.sidebar ul {
+  list-style: none;
+  margin-left: -25%; /* restored original offset */
+}
+
+.sidebar ul li {
+
+  margin: 15px 0;
+
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: background 0.3s;
+  margin-left: 10px; /* original spacing restored */
+}
+
+.sidebar ul li a:hover {
+
+  background: #dbab1b;
+
+}
+/* Toggle button */
+.sidebar-toggle {
+  background: #293646;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.sidebar h2{ /* To ajust down a liitle the UM CLINIC h2 in the side bar */
+    padding-top: 8%;
+}
+
+/*==================================================INVENTORY STYLE==============================================================*/
 #inventory-div{
     /*background-color: palegreen;*/
     background: #f9f9f9;
@@ -257,8 +387,6 @@ body, html {
     margin-left: 5%;
 
 }
-
-
 .inv-btn{
     background: #90210b;  /* red button */
     color: white;
@@ -294,8 +422,11 @@ th {
     background: #90210b;
     color: white;
 }
+.welcome-text{
+    padding-left: 45%;  /* To middle the inventory text */    
+}
 
-/* ========= FIX HORIZONTAL SCROLL ISSUE ========= */
+/* ================================================= FIX HORIZONTAL SCROLL ISSUE ============================================== */
 html, body {
     overflow-x: hidden;
 }

@@ -16,32 +16,39 @@ if(!isset($_SESSION['role'])) {
 <body>
 <div class="dashboard-container">
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="appSidebar">   
-        <h2>UM Clinic</h2>
-        <ul>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
-                <li><a href="schedule.php">📅 Next Schedule </a></li>
-                <li><a href="history.php">📜 History </a></li>
-            <?php else: ?>
-                <li><a href="staff_dashboard.php">🏠 Dashboard</a></li>
-                <li><a href="">➕ Medical Records</a></li>
-                <li><a href="inventory.php">📦 Manage Inventory</a></li>
-                <li><a href="record.php">👨🏻‍⚕️ Manage Patients</a></li>
-                <li><a href="#">📅 Appointmens</a></li>
-            <?php endif; ?>
-        </ul>
-    </div>   
-      
-    <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-        <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
-    </button> 
+         <!-- Sidebar -->
+         <div class="sidebar" id="appSidebar">
+            <h2 class="js-sidebar-trigger">UM CLINIC</h2>
+
+            <ul>
+                <!-- CHECK ROLE AND DEPEND ON THAT THE SIDE BAR WILL ADJUST (STAFF/STA) -->
+                <?php if ($_SESSION['role'] === 'staff'): ?>
+                    <li><a href="staff_dashboard.php">🏠 Dashboard</a></li>
+                    <li><a href="medicalrecord.php">➕ Medical Records</a></li>
+                    <li><a href="inventory.php">📦 Manage Inventory</a></li>
+                    <li><a href="record.php">👨🏻‍⚕️ Manage Patients</a></li>
+                    <li><a href="#">📅 Appointments</a></li>
+
+                <?php elseif ($_SESSION['role'] === 'sta'): ?>
+                    <li><a href="sta_dashboard.php">🏠 Dashboard</a></li>
+                    <li><a href="inventory.php">📦 View Inventory</a></li>
+                    <li><a href="record.php">📋 View Records</a></li>
+                    <li><a href="">➕ Add New Record</a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+
+        <!-- Sidebar Overlay (click to close) -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar Launcher (logo button) -->
+        <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
+            <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
+        </button>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="top-header">
-            <!--THIS IS FOR SIDEBAR SLIDE-->
-                <button id="toggleSidebar" class="icon-btn">☰</button>
             <div class="welcome-text">
                 <h1>
                     Welcome, 
@@ -110,85 +117,83 @@ if(!isset($_SESSION['role'])) {
     </div>
 
 </div>
-<script>
-    (function() {
-        var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
-        var sidebar = document.getElementById('appSidebar');
-        var container = document.querySelector('.dashboard-container');
-        var overlay = document.querySelector('.sidebar-overlay');
-        var toggleBtn = document.getElementById('sidebarToggleBtn');
-        if (!sidebar || !container) return;
+ <!-- Sidebar Script -->
+ <script>
+        (function() {
+            var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
+            var sidebar = document.getElementById('appSidebar');
+            var container = document.querySelector('.dashboard-container');
+            var overlay = document.querySelector('.sidebar-overlay');
+            var toggleBtn = document.getElementById('sidebarToggleBtn');
+            if (!sidebar || !container) return;
 
-        function openSidebar() {
-            sidebar.classList.add('open');
-            if (container) container.classList.add('with-sidebar-open');
-            if (overlay) overlay.classList.add('visible');
-        }
+            function openSidebar() {
+                sidebar.classList.add('open');
+                if (container) container.classList.add('with-sidebar-open');
+                if (overlay) overlay.classList.add('visible');
+            }
 
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            if (container) container.classList.remove('with-sidebar-open');
-            if (overlay) overlay.classList.remove('visible');
-        }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                if (container) container.classList.remove('with-sidebar-open');
+                if (overlay) overlay.classList.remove('visible');
+            }
 
-        function toggleSidebar() {
-            try {
-                if (sidebar.classList.contains('open')) {
-                    closeSidebar();
-                } else {
+            function toggleSidebar() {
+                try {
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                } catch (err) {
+                    console.error('Sidebar toggle error:', err);
+                }
+            }
+
+            // Hide by default
+            closeSidebar();
+
+            // Click any trigger (UM CLINIC title) to open sidebar
+            if (triggerEls && triggerEls.length) {
+                triggerEls.forEach(function(el) {
+                    el.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openSidebar();
+                    });
+                });
+            }
+
+            // Toggle button for opening/closing sidebar
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleSidebar();
+                });
+            }
+
+            // Also allow clicking the collapsed sidebar edge
+            sidebar.addEventListener('click', function(e) {
+                if (!sidebar.classList.contains('open')) {
+                    e.stopPropagation();
                     openSidebar();
                 }
-            } catch (err) {
-                console.error('Sidebar toggle error:', err);
-            }
-        }
+            });
 
-        // Hide by default (already off-screen via CSS), ensure no flash
-        closeSidebar();
+            // ESC to close sidebar
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
 
-        // Click any trigger to open sidebar
-        if (triggerEls && triggerEls.length) {
-            triggerEls.forEach(function(el){
-                el.addEventListener('click', function(e){
-                    e.preventDefault();
-                    openSidebar();
+            // Click outside on overlay to close
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeSidebar();
                 });
-            });
-        }
-
-        // Toggle button for opening/closing sidebar
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', function(e){
-                e.preventDefault();
-                toggleSidebar();
-            });
-        }
-
-        // Also allow clicking the visible edge of the collapsed sidebar
-        sidebar.addEventListener('click', function(e){
-            if (!sidebar.classList.contains('open')) {
-                e.stopPropagation();
-                openSidebar();
             }
-        });
-
-        // ESC to close sidebar
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-                closeSidebar();
-            }
-        });
-
-        // Click outside on overlay to close
-        if (overlay) {
-            overlay.addEventListener('click', function(){
-                closeSidebar();
-            });
-        }
-
-        
-    })();
+        })();
     </script>
-</script>
 </body>
 </html>
