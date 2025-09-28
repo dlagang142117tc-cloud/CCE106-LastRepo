@@ -4,30 +4,32 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+// Determine current page to highlight active menu item
+$currentPage = basename($_SERVER['PHP_SELF']);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="student_dashboard.css">
+    <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="appSidebar">   
-    
         <h2>
-            UM Clinic
+            UM CLINIC
         </h2>
         <ul>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
-                <li><a href="schedule.php">📅 Next Schedule </a></li>
-                <li><a href="history.php">📜 History </a></li>
+                <li><a href="student_dashboard.php" class="<?php echo ($currentPage === 'student_dashboard.php') ? 'active' : ''; ?>">🏠 Student Dashboard</a></li>
+                <li><a href="schedule.php" class="<?php echo ($currentPage === 'schedule.php') ? 'active' : ''; ?>">📅 Next Schedule </a></li>
+                <li><a href="history.php" class="<?php echo ($currentPage === 'history.php') ? 'active' : ''; ?>">📜 History </a></li>
             <?php else: ?>
-                <li><a href="#">🧑‍⚕️ Manage Patients</a></li>
-                <li><a href="#">📋 Appointments</a></li>
-                <li><a href="#">⚙️ Settings</a></li>
+                <li><a href="#" class="<?php echo ($currentPage === 'manage_patients.php') ? 'active' : ''; ?>">🧑‍⚕️ Manage Patients</a></li>
+                <li><a href="#" class="<?php echo ($currentPage === 'appointments.php') ? 'active' : ''; ?>">📋 Appointments</a></li>
+                <li><a href="#" class="<?php echo ($currentPage === 'settings.php') ? 'active' : ''; ?>">⚙️ Settings</a></li>
             <?php endif; ?>
         </ul>
             <ul class="bottom">
@@ -37,7 +39,7 @@ if (!isset($_SESSION['username'])) {
         </div>   
         
         <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-            <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
+            <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
         </button> 
         
        
@@ -133,11 +135,11 @@ if (!isset($_SESSION['username'])) {
       <div class="footer-right">
         <h3>BRANCHES</h3>
         <ul>
-          <li>TAGUM</li>
-          <li>PANABO</li>
-          <li>DIGOS</li>
-          <li>BANSALAN</li>
-          <li>PEÑALATA</li>
+            <a href="https://umtc.umindanao.edu.ph/login" target="_blank"><li>TAGUM</li></a>
+            <a href="https://umpc.umindanao.edu.ph/login" target="_blank"><li>PANABO</li></a>
+            <a href="https://umdc.umindanao.edu.ph/login" target="_blank"><li>DIGOS</li></a>
+            <a href="https://umbc.umindanao.edu.ph/login" target="_blank"><li>BANSALAN</li></a>
+            <a href="https://umpe.umindanao.edu.ph/login" target="_blank"><li>PEÑALATA</li></a>
         </ul>
       </div>
     </div>

@@ -1,128 +1,134 @@
 <?php
 session_start();
-if(!isset($_SESSION['role'])) {
+
+if (!isset($_SESSION['role'])) {
     header("Location: index.php");
     exit();
 }
-// Determine current page to highlight active menu item
+
+$role = $_SESSION['role'];
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="staffdash.css?v=<?php echo time(); ?>">
-    <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinic Records</title>
+  <link rel="stylesheet" href="medicalrecord.css" />
+  <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
 <div class="dashboard-container">
 
-         <!-- Sidebar -->
-         <div class="sidebar" id="appSidebar">
-            <h2 class="js-sidebar-trigger">UM CLINIC</h2>
-
+    <!-- Sidebar -->
+    <div class="sidebar" id="appSidebar">
+         <h2 class="js-sidebar-trigger">UM CLINIC</h2>
             <ul>
-                <!-- CHECK ROLE AND DEPEND ON THAT THE SIDE BAR WILL ADJUST (STAFF/STA) -->
-                <?php if ($_SESSION['role'] === 'staff'): ?>
-                    <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
+            <?php if ($_SESSION['role'] === 'staff'): ?>
+                <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
                     <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
                     <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
                     <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
                     <li><a href="appointment.php" class="<?php echo ($currentPage === 'appointment.php') ? 'active' : ''; ?>">📅 Appointments</a></li>
-
                 <?php elseif ($_SESSION['role'] === 'sta'): ?>
                     <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 STA Dashboard</a></li>
                     <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
                     <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
                     <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
-
                 <?php endif; ?>
             </ul>
-        </div>
+    </div>
 
-        <!-- Sidebar Overlay (click to close) -->
-        <div class="sidebar-overlay"></div>
+    <!-- Overlay -->
+    <div class="sidebar-overlay"></div>
 
-        <!-- Sidebar Launcher (logo button) -->
-        <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-            <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
-        </button>
+    <!-- Launcher -->
+    <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
+        <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
+    </button>
 
-    <!-- Main Content -->
-    <div class="main-content">
+    <!-- === MAIN CONTENT === -->
+    <div class="main">
+
+        <!-- Top Header -->
         <div class="top-header">
             <div class="welcome-text">
-                <h1>
-                    Welcome, 
-                    <?php 
-                        echo isset($_SESSION['name']) ? $_SESSION['name'] : ucfirst($_SESSION['role']); 
-                    ?>!
-                </h1>
-                <p>This is your <?php echo $_SESSION['role']; ?> dashboard page.</p>
-            </div> 
+                <h1>MEDICAL RECORDS</h1>
+            </div>
             <div class="header-actions">
-                <!-- Logout Button -->
                 <form action="logout.php" method="POST" style="display:inline;">
                     <button type="submit" class="logout-btn">Logout</button>
                 </form>
             </div>
-        </div>       
+        </div>
 
-        <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
-            <div class="cards-container">
-                <div class="card">
-                    <h2>📅 Next Appointment</h2>
-                    <p>Date: <strong>September 15, 2025</strong></p>
-                    <p>Doctor: <strong>Dr. Santos</strong></p>
-                    <p>Reason: <strong>General Checkup</strong></p>
+        <!-- Records -->
+        <div class="record">
+            <div class="patient-div">
+                <div class="action-buttons">
+                    <button class="edit-btn">Edit</button>
                 </div>
-                <div class="card">
-                    <h2>📜 Visit History</h2>
-                    <ul>
-                        <li>Aug 12, 2025 - Flu Consultation</li>
-                        <li>Jul 22, 2025 - Blood Pressure Check</li>
-                        <li>Jun 15, 2025 - Medical Certificate Request</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h2>👤 Profile</h2>
-                    <p>Name: <?php echo $_SESSION['name'] ?? "N/A"; ?></p>
-                    <p>Student ID: 2025-12345</p>
-                    <p>Course: BSIT</p>
-                </div>
-            </div>
-        <?php else: ?>
-        <div class="reports">
-            <h2 class=monthly>Monthly Reports</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <h2>📑 Coughing Blood </h2>
-                    <p>Paul Daniel</p>
-                    <p>Student - 144569</p>
-                    <p>BSIT</p>
-                </div>
-                <div class="card">
-                    <h2>📑 Diarrhea </h2>
-                    <p>Denns Lagang</p>
-                    <p>Student - 144669</p>
-                    <p>BSIT</p>
-                </div>
-                <div class="card">
-                    <h2>📑 Headache </h2>
-                    <p>Marc Jason</p>
-                    <p>Student - 144769</p>
-                    <p>BSIT</p>
-                </div>
+
+                <table class="student">
+                    <tr>
+                        <th>ID No.</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Role</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Status</th>
+                        <th>Medicine</th>
+                    </tr>
+                    <tr>
+                        <td>142455</td>
+                        <td>Marc Jason Alagase</td>
+                        <td>20</td>
+                        <td>Professor</td>
+                        <td>Tagum City</td>
+                        <td>0987654321</td>
+                        <td>Recovering</td>
+                        <td>Biogesic</td>
+                    </tr>
+                    <tr>
+                        <td>142456</td>
+                        <td>Denns Lawrence Lagang</td>
+                        <td>20</td>
+                        <td>Student</td>
+                        <td>Tagum City</td>
+                        <td>0987654321</td>
+                        <td>Bedridden</td>
+                        <td>Diatabs</td>
+                    </tr>
+                    <tr>
+                        <td>142457</td>
+                        <td>Paul Daniel Varon</td>
+                        <td>20</td>
+                        <td>Professor</td>
+                        <td>Tagum City</td>
+                        <td>0987654321</td>
+                        <td>Observed</td>
+                        <td>Citerizine</td>
+                    </tr>
+                    <tr>
+                        <td>142458</td>
+                        <td>Ireneo Barayuga</td>
+                        <td>20</td>
+                        <td>Student</td>
+                        <td>Tagum City</td>
+                        <td>0987654321</td>
+                        <td>Recovering</td>
+                        <td>Biogesic</td>
+                    </tr>
+                </table>
             </div>
         </div>
-        <?php endif; ?>
     </div>
-
 </div>
- <!-- Sidebar Script -->
- <script>
+
+  <script>
         (function() {
             var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
             var sidebar = document.getElementById('appSidebar');

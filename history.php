@@ -4,6 +4,8 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
+// Determine current page to highlight active menu item
+$currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -12,16 +14,17 @@ if (!isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <title>History</title>
     <link rel="stylesheet" href="history.css">
+    <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar" id="appSidebar">
-        <h2>UM Clinic</h2>
+        <h2>UM CLINIC</h2>
         <ul>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'student'): ?>
-                <li><a href="student_dashboard.php">🏠 Student Dashboard</a></li>
-                <li><a href="schedule.php">📅 Next Schedule</a></li>
-                <li><a href="history.php">📜 History</a></li>
+                <li><a href="student_dashboard.php" class="<?php echo ($currentPage === 'student_dashboard.php') ? 'active' : ''; ?>">🏠 Student Dashboard</a></li>
+                <li><a href="schedule.php" class="<?php echo ($currentPage === 'schedule.php') ? 'active' : ''; ?>">📅 Next Schedule</a></li>
+                <li><a href="history.php" class="<?php echo ($currentPage === 'history.php') ? 'active' : ''; ?>">📜 History</a></li>
             <?php else: ?>
                 <li><a href="#">🧑‍⚕️ Manage Patients</a></li>
                 <li><a href="#">📋 Appointments</a></li>
@@ -34,7 +37,7 @@ if (!isset($_SESSION['username'])) {
     </div>
 
     <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-        <img src="asset/images/um_logo_no_bg.png" alt="Sidebar" style="width:40px;height:auto;" />
+        <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
     </button>
 
     <div class="dashboard-container">

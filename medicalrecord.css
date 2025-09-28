@@ -138,9 +138,7 @@ body, html {
 .sidebar ul li a:hover {
 
  background: #dbab1b;
-
 }
-
 /* Active/current page link */
 .sidebar ul li a.active {
   background: #d4af37; /* gold */
@@ -167,7 +165,6 @@ body, html {
   background: #dbab1b;
   color: #000;
 }
-
 /* ========== MAIN CONTENT ========== */
 .main {
   flex: 1;

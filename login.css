@@ -5,261 +5,226 @@ body {
 
     font-family: "Segoe UI", Arial, sans-serif;
     
-    background: linear-gradient(135deg, #ba600d, #1c3674); /* purple → blue gradient */
-    
+    background-image: url(asset/images/login-bg.png);
+    background-size: cover;
+    background-position: center;
     color: #333;
-    
     min-height: 100vh;
-    
-    
-    
     justify-content: center;
-    
     align-items: center;
-    
-    }
+}
+/* Center container to place login and register boxes in the middle */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* full viewport height */
+  padding: 20px;     /* breathing room on small screens */
+  box-sizing: border-box;
+}
     
     /* ===== Login Box ===== */
     
-    .login-box {
+.login-box {
     
-    background: white;
-    
+    background: #D3D3D3;
     padding: 25px 30px;
-    
     width: 320px;
-    
     border-radius: 12px;
-    
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    
     text-align: center;
-    
     animation: fadeIn 0.6s ease-in-out;
+}
     
-    
-    
-    
-    
-    }
-    
-    .login-box h2 {
-    
-    color: #2575fc;
-    
+.login-box h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #b32424;
     margin-bottom: 20px;
-    
+    font-size: 25px;
+    text-align: center; /* ensure centered text */
+    width: 100%;        /* span full width for perfect centering */
     }
     
     /* ===== Inputs ===== */
     
-    input, select {
-    
+input, select {
     width: 100%;
-    
-    padding: 10px;
-    
-    margin: 8px 0;
-    
+    box-sizing: border-box; /* ensures padding + border stay within 100% width */
+    padding: 10px;          /* symmetrical padding on all sides */
+    margin: 8px 0;          /* vertical-only margin for perfect left/right alignment */
     border: 2px solid #ddd;
-    
     border-radius: 8px;
-    
     outline: none;
-    
     transition: 0.3s;
-    
     }
     
-    input:focus, select:focus {
-    
-    border-color: #6a11cb;
-    
-    box-shadow: 0 0 5px rgba(106,17,203,0.4);
-    
-    }
+.login-box input:focus, .login-box select:focus {
+    border-color: #90210b;
+    box-shadow: 0 0 5px rgba(144,33,11,0.4);
+}
     
     /* ===== Buttons ===== */
     
-    button {
-    
-    width: 100%;
-    
-    padding: 10px;
-    
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    
-    color: white;
-    
-    border: none;
-    
-    border-radius: 8px;
-    
-    font-weight: bold;
-    
-    cursor: pointer;
-    
-    transition: 0.3s;
-    
-    }
-    
-    button:hover {
-    
-    transform: scale(1.05);
-    
-    background: linear-gradient(135deg, #2575fc, #6a11cb);
-    
-    }
-    
-    /* ===== Error Message ===== */
-    
-    .error {
-    
-    color: #e74c3c;
-    
-    font-weight: bold;
-    
-    margin: 10px 0;
-    
-    }
-    
-    .dashboard-container {
-    
-    display: flex;
-    
-    min-height: 100vh;
-    
-    }
-    
-    /* Sidebar */
-    
-    .sidebar {
-    
-    width: 240px;
-    
-    background: linear-gradient(135deg, #9f501b, #ced7e5);
-    
-    color: white;
-    
-    padding: 20px;
-    
-    display: flex;
-    
-    flex-direction: column;
-    
-    border-top-right-radius: 20px;
-    
-    border-bottom-right-radius: 20px;
-    flex-shrink: 0;
-    
-    }
-    
-    .sidebar h2 {
-    
-    text-align: center;
-    
-    margin-bottom: 20px;
-    
-    font-size: 22px;
-    
-    }
-    
-    .sidebar ul {
-    
-    list-style: none;
-    
-    }
-    
-    .sidebar ul li {
-    
-    margin: 15px 0;
-    
-    }
-    
-    .sidebar ul li a {
-    
-    text-decoration: none;
-    
-    color: white;
-    
-    font-weight: 500;
-    
-    display: block;
-    
-    padding: 10px;
-    
-    border-radius: 8px;
-    
-    transition: background 0.3s;
-    
-    }
-    
-    .sidebar ul li a:hover {
-    
-    background: rgba(255,255,255,0.2);
-    
-    }
-    
-    /* Main Content */
-    
-    .main-content {
-    
-    flex: 1;
-    
-    background: #f9f9f9;
-    
-    padding: 30px;
-    
-    border-radius: 20px 0 0 20px;
-    
-    }
-    
-    .main-content h1 {
-    
+button {
+  width: 100%;
+  box-sizing: border-box; /* align width behavior with inputs */
+  padding: 10px;
+  margin: 8px 0;          /* vertical-only margin for perfect left/right alignment */
+  background: linear-gradient(135deg, #90210b, #dbab1b);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: block;     /* remove inline spacing quirks */
+  text-align: center; /* ensure label is centered */
+}
+    
+button:hover { 
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #dbab1b, #90210b);
+}
+    
+/* ===== Error Message ===== */
+    
+.error {
+  color: #e74c3c;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+    
+/* Main Content */
+  .main-content {
+  flex: 1;
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 20px 0 0 20px;
+}
+
+.main-content h1 {
     color: #2575fc;
-    
     margin-bottom: 15px;
+}
     
+.logo-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+    
+.logo-container img {
+  width: 150px; /* adjust size */
+  height: auto;
+  display: block;      /* ensure block-level for margin auto centering */
+  margin: 0 auto;      /* center horizontally */
+}
+
+.backgroundimageText {
+  text-align: center;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+    
+.backgroundimageText img {
+  width: 250px; /* adjust size */
+}
+
+.register-cta #showRegisterBtn {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 8px 0;
+    background: transparent;
+    color: #90210b;
+    border: 2px solid #90210b;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+    .register-cta #showRegisterBtn:hover {
+      background: #90210b;
+      color: white;
     }
     
-    .logo-container {
-    
-    text-align: center;
-    
-    margin-bottom: 15px;
-    
+    .register-box {
+      background: #D3D3D3;
+      padding: 25px 30px;
+      width: 320px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      margin-top: 16px;
+}
+    .register-box h2 {
+      font-family: 'Poppins', sans-serif;
+      color: #b32424;
+      margin-bottom: 20px;
+      font-size: 22px;
+      text-align: center;
+      width: 100%;
     }
-    
-    .logo-container img {
-    
-    width: 150px; /* adjust size */
-    
-    height: auto;
-    
+
+    .password-box {
+      position: relative;       /* allow absolute positioning of the eye */
     }
-    
-    .backgroundimageText {
-    
-    text-align: center;
-    margin-top: 0px;
-    margin-left: 0px;
-    
+    .password-box input {
+      width: 100%;
+      box-sizing: border-box;   /* padding + border within width */
+      padding: 10px;            /* base padding */
+      padding-right: 42px;      /* room for eye on the right */
+      margin: 8px 0;            /* vertical spacing */
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
     }
-    
-    .backgroundimageText img {
-    
-    width: 250px; /* adjust size */
-    
-    margin-bottom: 20px;
-    
-    height: auto;
-    
+    .password-box img {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      user-select: none;
     }
-    
-    .center-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+    .register-box input:focus, .register-box select:focus{
+      border-color: #90210b;
+      box-shadow: 0 0 5px rgba(144,33,11,0.4);
+  }
+
+     
+    .register-box .note {
+      font-size: 12px;
+      color: #444;
+      margin-top: 8px;
     }
+    .register-actions {
+      margin-top: 8px;
+    }
+    .register-actions .secondary {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin: 8px 0;
+      background: transparent;
+      color: #90210b;
+      border: 2px solid #90210b;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .register-actions .secondary:hover {
+      background: #90210b;
+      color: white;
+    }
+
+
