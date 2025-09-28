@@ -384,9 +384,15 @@ body, html {
     display: flex;
     justify-content: left;
     padding-top: 5px;
-    margin-left: 5%;
+    margin-left: 10%;
 
-}
+}   
+
+
+
+
+
+
 .inv-btn{
     background: #90210b;  /* red button */
     color: white;
@@ -426,7 +432,65 @@ th {
     padding-left: 45%;  /* To middle the inventory text */    
 }
 
+
+ /* ===== MODAL STYLE ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 20000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .modal-content h2 {
+            margin-top: 0;
+            color: #90210b;
+        }
+        .modal-content label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        .modal-actions {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .modal-actions button {
+            margin-left: 10px;
+        }
+        .close-btn {
+            float: right;
+            font-size: 22px;
+            cursor: pointer;
+            color: #666;
+        }
+        .close-btn:hover {
+            color: #000;
+
+
+
+
+
 /* ================================================= FIX HORIZONTAL SCROLL ISSUE ============================================== */
+/*
 html, body {
     overflow-x: hidden;
 }
@@ -437,7 +501,7 @@ html, body {
 }
 
 #inv-header {
-    padding-left: 5%;   /* reduced from 10% */
+    padding-left: 5%;   
     padding-right: 5%;
     box-sizing: border-box;
 }
@@ -446,3 +510,33 @@ html, body {
     max-width: 100%;
     table-layout: auto;
 }
+ reduced from 10% */
+
+
+
+
+
+
+
+
+
+/*===============================================EDIT INVENTORY BUTTON STYLES=================================*/
+/* Actions column styling */
+.inventory-table .actions-col {
+    text-align: right; /* keep buttons on the right */
+    white-space: nowrap; /* prevent wrapping */
+}
+
+/* ===================== DENNS EDIT THIS TO PREVENT SIDE SCROLLING ===================== */
+html, body {
+    overflow-x: hidden; /* Hides any horizontal scroll */
+}
+
+/* Force table to fit inside the container */
+table {
+    table-layout: fixed;  /* Prevents table from expanding too wide */
+    width: 100%;          /* Make sure table only takes available width */
+    word-wrap: break-word; /* Breaks long words to fit inside cells */
+    white-space: normal;   /* Allow text wrapping instead of one long line */
+}
+
