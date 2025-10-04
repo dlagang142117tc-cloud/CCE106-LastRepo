@@ -143,11 +143,11 @@ body, html {
 
 
 .sidebar-logo {
-   width: 30px;               /* adjust size */
-   height: auto;
-   margin-right: 10px; 
-   margin-left: 0;
-   cursor: pointer;
+  width: 30px;               /* adjust size */
+  height: auto;
+  margin-right: 10px; 
+  margin-left: 0;
+  cursor: pointer;
    
    
 }
@@ -189,11 +189,10 @@ body, html {
  margin: 15px 0;
 
 }
+
 .bottom {
-   margin-top: auto;
-   margin-bottom: 5px;
-   
-   
+  margin-top: auto;
+  margin-bottom: 50px;
 }
 
 .sidebar ul li a { 

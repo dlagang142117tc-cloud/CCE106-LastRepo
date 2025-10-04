@@ -7,7 +7,6 @@ if (!isset($_SESSION['role'])) {
 }
 
 $role = $_SESSION['role'];
-// Determine current page to highlight active menu item
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -17,7 +16,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clinic Records</title>
-  <link rel="stylesheet" href="appointment.css?v=1" />
+  <link rel="stylesheet" href="medicalrecord.css" />
   <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
@@ -27,22 +26,23 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="sidebar" id="appSidebar">
          <h2 class="js-sidebar-trigger">UM CLINIC</h2>
             <ul>
-            <?php if ($_SESSION['role'] === 'staff'): ?>
-                <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠Staff Dashboard</a></li>
-                <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
-                <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
-                <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
-                <li><a href="appointment.php" class="<?php echo ($currentPage === 'appointment.php') ? 'active' : ''; ?>">📅 Appointments</a></li>
-            <?php elseif ($_SESSION['role'] === 'sta'): ?>
-                <li><a href="sta_dashboard.php" class="<?php echo ($currentPage === 'sta_dashboard.php') ? 'active' : ''; ?>">🏠 STA Dashboard</a></li>
-                <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
-                <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
-                <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
-            <?php endif; ?>
+                <?php if ($_SESSION['role'] === 'staff'): ?>
+                    <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
+                    <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
+                    <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
+                    <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
+                    <li><a href="appointment.php" class="<?php echo ($currentPage === 'appointment.php') ? 'active' : ''; ?>">📅 Appointments</a></li>
+                <?php elseif ($_SESSION['role'] === 'sta'): ?>
+                    <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 STA Dashboard</a></li>
+                    <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
+                    <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
+                    <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
+                    <li><a href="logs.php" class="<?php echo ($currentPage === 'logs.php') ? 'active' : ''; ?>">Logs</a></li>
+                <?php endif; ?>
             </ul>
             <ul class="bottom">
                 <li><a href="logs.php" class="<?php echo ($currentPage === 'logs.php') ? 'active' : ''; ?>">📝Logs</a></li>
-            </ul>
+            </ul>       
     </div>
 
     <!-- Overlay -->
@@ -59,7 +59,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <!-- Top Header -->
         <div class="top-header">
             <div class="welcome-text">
-                <h1>APPOINTMENTS</h1>
+                <h1>LOGS</h1>
             </div>
             <div class="header-actions">
                 <form action="logout.php" method="POST" style="display:inline;">
@@ -71,48 +71,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <!-- Records -->
         <div class="record">
             <div class="patient-div">
-                <div class="action-buttons">
-                    <button class="add-btn">Add</button>
-                    <button class="edit-btn">Edit</button>
-                </div>
 
                 <table class="student">
                     <tr>
+                        <th>ID No.</th>
                         <th>Name</th>
-                        <th>Staff</th>
-                        <th>Last Consultation</th>
-                        <th>Next Consultation</th>
-                        <th>Doctor</th>
+                        <th>Age</th>
+                        <th>Role</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
                         <th>Status</th>
+                        <th>Medicine</th>
                     </tr>
-                    <tr>
-                        <td>Marc Jason Alagase</td>
-                        <td>Sir Delacruz</td>
-                        <td>09-20-2025</td>
-                        <td>09-30-2025</td>
-                        <td>Doc. Willie Ong</td>
-                    </tr>
-                    <tr>
-                        <td>Kaichi Espiritu</td>
-                        <td>Sir Doidoi</td>
-                        <td>09-21-2025</td>
-                        <td>10-11-2025</td>
-                        <td>Doc. Santos</td>
-                    </tr>
-                    <tr>
-                        <td>Denns Lagang</td>
-                        <td>Sir Neil</td>
-                        <td>09-20-2025</td>
-                        <td>09-25-2025</td>
-                        <td>Doc. Dela Cruz</td>
-                    </tr>
-                    <tr>
-                        <td>Jack Daray</td>
-                        <td>Sir Aguilar</td>
-                        <td>09-20-2025</td>
-                        <td>09-30-2025</td>
-                        <td>Doc. Cenita</td>
-                    </tr>
+                    
                 </table>
             </div>
         </div>

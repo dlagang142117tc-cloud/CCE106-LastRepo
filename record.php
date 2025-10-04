@@ -18,7 +18,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clinic Records</title>
-  <link rel="stylesheet" href="record.css" />
+  <link rel="stylesheet" href="record.css?v=1" />
   <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
@@ -71,18 +71,24 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <div class="patient-div">
                 <div class="action-buttons">
                     <button class="add-btn">Add</button>
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
                 </div>
 
-                <table class="student">
+                <table class="patient">
                     <tr>
                         <th>ID No.</th>
                         <th>Name</th>
                         <th>Age</th>
-                        <th>Role</th>
+                        <th>Role:
+                        <select class="role-filter">
+                            <option value="" disabled selected hidden>Select Role</option>
+                            <option value="all">All</option>
+                            <option value="Student">Student</option>
+                            <option value="Professor">Professor</option>
+                        </select>
+                        </th>
                         <th>Address</th>
                         <th>Contact Number</th>
+                        <th>Actions</th>
                     </tr>
                     <tr>
                         <td>142455</td>
@@ -91,6 +97,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>Professor</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                     <tr>
                         <td>142456</td>
@@ -99,6 +106,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>Student</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                     <tr>
                         <td>142457</td>
@@ -107,6 +115,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>Professor</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                     <tr>
                         <td>142458</td>
@@ -115,6 +124,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>Student</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
+                        <td><button class="edit-btn">Edit</button></td>
                     </tr>
                 </table>
             </div>
@@ -199,5 +209,30 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             }
         })();
     </script>
+    </script>
+
+<!-- === ROLE FILTER SCRIPT === -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const filter = document.querySelector(".role-filter");
+  const rows = document.querySelectorAll("table.patient tr");
+
+  filter.addEventListener("change", function() {
+    const selectedRole = this.value;
+
+    rows.forEach((row, index) => {
+      // skip header row (index 0)
+      if (index === 0) return;
+
+      const roleCell = row.cells[3]?.textContent.trim(); // 4th column is Role
+      if (selectedRole === "all" || roleCell === selectedRole) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+});
+</script>
 </body>
 </html>

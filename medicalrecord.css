@@ -118,10 +118,8 @@ body, html {
 
 }
 .bottom {
-   margin-top: auto;
-   margin-bottom: 5px;
-   
-   
+  margin-top: auto;
+  margin-bottom: 50px;
 }
 
 .sidebar ul li a { 
@@ -285,4 +283,28 @@ table td {
 
 table tr:nth-child(even){ 
   background-color: #f9f9f9; 
+}
+
+.role-filter {
+  background: white;   /* blend into header */
+  border: 1px;
+  border-radius: 5px;
+  color: black;              /* white text on red header */
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Make dropdown list yellow */
+.role-filter option {
+  background-color: white;  /* gold/yellow background */
+  color: #000;                /* black text for contrast */
+  border-radius: 3px;
+}
+
+/* Optional: hover or selected style inside dropdown */
+.role-filter option:checked,
+.role-filter option:hover {
+  background-color: white;  /* darker yellow for hover */
+  color: #000;
 }

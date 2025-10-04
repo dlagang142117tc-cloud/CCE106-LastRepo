@@ -16,7 +16,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clinic Records</title>
-  <link rel="stylesheet" href="medicalrecord.css" />
+  <link rel="stylesheet" href="medicalrecord.css?v=1" />
   <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
@@ -26,8 +26,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="sidebar" id="appSidebar">
          <h2 class="js-sidebar-trigger">UM CLINIC</h2>
             <ul>
-            <?php if ($_SESSION['role'] === 'staff'): ?>
-                <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
+                <?php if ($_SESSION['role'] === 'staff'): ?>
+                    <li><a href="staff_dashboard.php" class="<?php echo ($currentPage === 'staff_dashboard.php') ? 'active' : ''; ?>">🏠 Staff Dashboard</a></li>
                     <li><a href="medicalrecord.php" class="<?php echo ($currentPage === 'medicalrecord.php') ? 'active' : ''; ?>">➕ Medical Records</a></li>
                     <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
                     <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
@@ -38,6 +38,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
                     <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
                 <?php endif; ?>
+            </ul>
+            <ul class="bottom">
+                <li><a href="logs.php" class="<?php echo ($currentPage === 'logs.php') ? 'active' : ''; ?>">📝Logs</a></li>
             </ul>
     </div>
 
@@ -76,51 +79,59 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <th>ID No.</th>
                         <th>Name</th>
                         <th>Age</th>
-                        <th>Role</th>
+                        <th>
+                            Role:
+                            <select class="role-filter">
+                                <option value="" disabled selected hidden>Select Role</option>
+                                <option value="all">All</option>
+                                <option value="Student">Student</option>
+                                <option value="Professor">Professor</option>
+                            </select>
+                        </th>
+                        <th>Medicine</th>
+                        <th>Reason</th>
                         <th>Address</th>
                         <th>Contact Number</th>
-                        <th>Status</th>
-                        <th>Medicine</th>
                     </tr>
                     <tr>
                         <td>142455</td>
                         <td>Marc Jason Alagase</td>
                         <td>20</td>
                         <td>Professor</td>
+                        <td>Biogesic</td>
+                        <td>Fever</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
-                        <td>Recovering</td>
-                        <td>Biogesic</td>
                     </tr>
                     <tr>
                         <td>142456</td>
                         <td>Denns Lawrence Lagang</td>
                         <td>20</td>
                         <td>Student</td>
+                        <td>Biogesic</td>
+                        <td>Fever</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
-                        <td>Bedridden</td>
-                        <td>Diatabs</td>
                     </tr>
                     <tr>
                         <td>142457</td>
                         <td>Paul Daniel Varon</td>
                         <td>20</td>
                         <td>Professor</td>
+                        <td>Biogesic</td>
+                        <td>Fever</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
-                        <td>Observed</td>
-                        <td>Citerizine</td>
                     </tr>
                     <tr>
                         <td>142458</td>
                         <td>Ireneo Barayuga</td>
                         <td>20</td>
                         <td>Student</td>
+                        <td>Biogesic</td>
+                        <td>Fever</td>
                         <td>Tagum City</td>
                         <td>0987654321</td>
-                        <td>Recovering</td>
-                        <td>Biogesic</td>
                     </tr>
                 </table>
             </div>
@@ -128,82 +139,71 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </div>
 </div>
 
-  <script>
-        (function() {
-            var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
-            var sidebar = document.getElementById('appSidebar');
-            var container = document.querySelector('.dashboard-container');
-            var overlay = document.querySelector('.sidebar-overlay');
-            var toggleBtn = document.getElementById('sidebarToggleBtn');
-            if (!sidebar || !container) return;
+<!-- === SIDEBAR SCRIPT === -->
+<script>
+(function() {
+    var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
+    var sidebar = document.getElementById('appSidebar');
+    var container = document.querySelector('.dashboard-container');
+    var overlay = document.querySelector('.sidebar-overlay');
+    var toggleBtn = document.getElementById('sidebarToggleBtn');
+    if (!sidebar || !container) return;
 
-            function openSidebar() {
-                sidebar.classList.add('open');
-                if (container) container.classList.add('with-sidebar-open');
-                if (overlay) overlay.classList.add('visible');
-            }
+    function openSidebar() {
+        sidebar.classList.add('open');
+        container.classList.add('with-sidebar-open');
+        overlay.classList.add('visible');
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        container.classList.remove('with-sidebar-open');
+        overlay.classList.remove('visible');
+    }
+    function toggleSidebar() {
+        sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    }
+    closeSidebar();
 
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                if (container) container.classList.remove('with-sidebar-open');
-                if (overlay) overlay.classList.remove('visible');
-            }
-
-            function toggleSidebar() {
-                try {
-                    if (sidebar.classList.contains('open')) {
-                        closeSidebar();
-                    } else {
-                        openSidebar();
-                    }
-                } catch (err) {
-                    console.error('Sidebar toggle error:', err);
-                }
-            }
-
-            // Hide by default
+    triggerEls.forEach(el => el.addEventListener('click', openSidebar));
+    toggleBtn.addEventListener('click', toggleSidebar);
+    sidebar.addEventListener('click', e => {
+        if (!sidebar.classList.contains('open')) {
+            e.stopPropagation();
+            openSidebar();
+        }
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && sidebar.classList.contains('open')) {
             closeSidebar();
+        }
+    });
+    overlay.addEventListener('click', closeSidebar);
+})();
+</script>
 
-            // Click any trigger (UM CLINIC title) to open sidebar
-            if (triggerEls && triggerEls.length) {
-                triggerEls.forEach(function(el) {
-                    el.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openSidebar();
-                    });
-                });
-            }
+<!-- === ROLE FILTER SCRIPT === -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const filter = document.querySelector(".role-filter");
+  const rows = document.querySelectorAll("table.student tr");
 
-            // Toggle button for opening/closing sidebar
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleSidebar();
-                });
-            }
+  filter.addEventListener("change", function() {
+    const selectedRole = this.value;
 
-            // Also allow clicking the collapsed sidebar edge
-            sidebar.addEventListener('click', function(e) {
-                if (!sidebar.classList.contains('open')) {
-                    e.stopPropagation();
-                    openSidebar();
-                }
-            });
+    rows.forEach((row, index) => {
+      // skip header row (index 0)
+      if (index === 0) return;
 
-            // ESC to close sidebar
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-                    closeSidebar();
-                }
-            });
+      const roleCell = row.cells[3]?.textContent.trim(); // 4th column is Role
+      if (selectedRole === "all" || roleCell === selectedRole) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+});
+</script>
 
-            // Click outside on overlay to close
-            if (overlay) {
-                overlay.addEventListener('click', function() {
-                    closeSidebar();
-                });
-            }
-        })();
-    </script>
 </body>
 </html>

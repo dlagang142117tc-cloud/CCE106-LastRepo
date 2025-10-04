@@ -32,9 +32,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 <li><a href="#" class="<?php echo ($currentPage === 'settings.php') ? 'active' : ''; ?>">⚙️ Settings</a></li>
             <?php endif; ?>
         </ul>
-            <ul class="bottom">
-                <li><a href="#">❔ Help </a></li>
-            </ul>
             
         </div>   
         
@@ -71,16 +68,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <p>Reason: <strong>General Checkup</strong></p>
                 </div>
                 <div class= "card">
-                    <h2>📜 Visit History</h2>
-                    <ul>
-                        <li>Aug 12, 2025 - Flu Consultation</li>
-                        <li>Jul 22, 2025 - Blood Pressure Check</li>
-                        <li>Jun 15, 2025 - Medical Certificate Request</li>
-                    </ul>
-                </div>
-                <div class= "card">
                     <h2>👤 Profile</h2>
-                    <p>Name: Jayson Cipro</p>
+                    <p>Name: Marc Alagase</p>
                     <p>Student ID: 2025-12345</p>
                     <p>Course: BSIT</p>
                 </div>

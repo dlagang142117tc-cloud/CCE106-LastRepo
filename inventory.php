@@ -38,10 +38,7 @@ $role = $_SESSION['role'];
                 <li><a href="inventory.php" class="<?php echo ($currentPage === 'inventory.php') ? 'active' : ''; ?>">📦 Manage Inventory</a></li>
                 <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
             <?php endif; ?>
-        </ul>
-        <ul class="bottom">
-            <li><a href="#">❔ Help</a></li>
-        </ul>
+        </ul>       
     </div>
 
     <div class="sidebar-overlay"></div>

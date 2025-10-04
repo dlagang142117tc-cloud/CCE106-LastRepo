@@ -40,6 +40,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
                 <?php endif; ?>
             </ul>
+            <ul class="bottom">
+                <li>
+                    <a href="logs.php" class="<?php echo ($currentPage === 'logs.php') ? 'active' : ''; ?>">📝Logs</a>    
+                </li>
+            </ul>
         </div>
 
         <!-- Sidebar Overlay (click to close) -->
