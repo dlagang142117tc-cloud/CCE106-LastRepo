@@ -242,7 +242,7 @@ body, html {
   margin: 15px 0;
 }
 
-.add-btn, .edit-btn, .delete-btn {
+.add-btn, .edit-btn{
   background: #7a0909;
   color: white;
   border: none;
@@ -253,7 +253,7 @@ body, html {
   transition: 0.3s;
 }
 
-.add-btn:hover, .edit-btn:hover, .delete-btn:hover {
+.add-btn:hover, .edit-btn:hover:hover {
   background: #b32424;
 }
 

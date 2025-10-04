@@ -7,7 +7,6 @@ if (!isset($_SESSION['role'])) {
 }
 
 $role = $_SESSION['role'];
-// Determine current page to highlight active menu item
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -76,14 +75,22 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <button class="edit-btn">Edit</button>
                 </div>
 
-                <table class="student">
+                <table class="patients">
                     <tr>
                         <th>Name</th>
                         <th>Staff</th>
                         <th>Last Consultation</th>
                         <th>Next Consultation</th>
                         <th>Doctor</th>
-                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Status 
+                            <select class="status-filter">
+                                <option value="all" selected>All</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Upcoming">Upcoming</option>
+                                <option value="Canceled">Canceled</option>
+                            </select>
+                        </th>
                     </tr>
                     <tr>
                         <td>Marc Jason Alagase</td>
@@ -91,6 +98,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>09-20-2025</td>
                         <td>09-30-2025</td>
                         <td>Doc. Willie Ong</td>
+                        <td>Fever</td>
+                        <td>Canceled</td>
                     </tr>
                     <tr>
                         <td>Kaichi Espiritu</td>
@@ -98,6 +107,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>09-21-2025</td>
                         <td>10-11-2025</td>
                         <td>Doc. Santos</td>
+                        <td>Stomach problems</td>
+                        <td>Completed</td>
                     </tr>
                     <tr>
                         <td>Denns Lagang</td>
@@ -105,6 +116,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>09-20-2025</td>
                         <td>09-25-2025</td>
                         <td>Doc. Dela Cruz</td>
+                        <td>Nosebleed</td>
+                        <td>Upcoming</td>
                     </tr>
                     <tr>
                         <td>Jack Daray</td>
@@ -112,6 +125,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                         <td>09-20-2025</td>
                         <td>09-30-2025</td>
                         <td>Doc. Cenita</td>
+                        <td>Fever</td>
+                        <td>Upcoming</td>
                     </tr>
                 </table>
             </div>
@@ -119,82 +134,57 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </div>
 </div>
 
-  <script>
-        (function() {
-            var triggerEls = document.querySelectorAll('.js-sidebar-trigger');
-            var sidebar = document.getElementById('appSidebar');
-            var container = document.querySelector('.dashboard-container');
-            var overlay = document.querySelector('.sidebar-overlay');
-            var toggleBtn = document.getElementById('sidebarToggleBtn');
-            if (!sidebar || !container) return;
+<!-- SIDEBAR SCRIPT -->
+<script>
+(function() {
+    const sidebar = document.getElementById('appSidebar');
+    const container = document.querySelector('.dashboard-container');
+    const overlay = document.querySelector('.sidebar-overlay');
+    const toggleBtn = document.getElementById('sidebarToggleBtn');
 
-            function openSidebar() {
-                sidebar.classList.add('open');
-                if (container) container.classList.add('with-sidebar-open');
-                if (overlay) overlay.classList.add('visible');
-            }
+    function openSidebar() {
+        sidebar.classList.add('open');
+        container.classList.add('with-sidebar-open');
+        overlay.classList.add('visible');
+    }
 
-            function closeSidebar() {
-                sidebar.classList.remove('open');
-                if (container) container.classList.remove('with-sidebar-open');
-                if (overlay) overlay.classList.remove('visible');
-            }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        container.classList.remove('with-sidebar-open');
+        overlay.classList.remove('visible');
+    }
 
-            function toggleSidebar() {
-                try {
-                    if (sidebar.classList.contains('open')) {
-                        closeSidebar();
-                    } else {
-                        openSidebar();
-                    }
-                } catch (err) {
-                    console.error('Sidebar toggle error:', err);
-                }
-            }
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    });
 
-            // Hide by default
-            closeSidebar();
+    overlay.addEventListener('click', closeSidebar);
+})();
+</script>
 
-            // Click any trigger (UM CLINIC title) to open sidebar
-            if (triggerEls && triggerEls.length) {
-                triggerEls.forEach(function(el) {
-                    el.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        openSidebar();
-                    });
-                });
-            }
+<!-- STATUS FILTER SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const filter = document.querySelector(".status-filter");
+  const rows = document.querySelectorAll(".patients tr");
 
-            // Toggle button for opening/closing sidebar
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleSidebar();
-                });
-            }
+  filter.addEventListener("change", function() {
+    const selectedStatus = this.value.toLowerCase();
 
-            // Also allow clicking the collapsed sidebar edge
-            sidebar.addEventListener('click', function(e) {
-                if (!sidebar.classList.contains('open')) {
-                    e.stopPropagation();
-                    openSidebar();
-                }
-            });
+    rows.forEach((row, index) => {
+      if (index === 0) return; // skip header
+      const statusCell = row.cells[6]?.textContent.trim().toLowerCase();
 
-            // ESC to close sidebar
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-                    closeSidebar();
-                }
-            });
+      if (selectedStatus === "all" || statusCell === selectedStatus) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
+    });
+  });
+});
+</script>
 
-            // Click outside on overlay to close
-            if (overlay) {
-                overlay.addEventListener('click', function() {
-                    closeSidebar();
-                });
-            }
-        })();
-    </script>
 </body>
 </html>

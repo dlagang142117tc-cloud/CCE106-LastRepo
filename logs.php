@@ -16,7 +16,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clinic Records</title>
-  <link rel="stylesheet" href="medicalrecord.css" />
+  <link rel="stylesheet" href="logs.css?v=1" />
   <link rel="icon" type="image/png" href="asset/images/um_logo_no_bg.png">
 </head>
 <body>
@@ -74,16 +74,54 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
                 <table class="student">
                     <tr>
-                        <th>ID No.</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Role</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Status</th>
-                        <th>Medicine</th>
+                        <th>Date & Time</th>
+                        <th>User Role</th>
+                        <th>User ID</th>
+                        <th>Action</th>
+                        <th>Details</th>
                     </tr>
-                    
+                    <tr>
+                        <td>2025-10-04 09:30 AM</td>
+                        <td>Student</td>
+                        <td>142466</td>
+                        <td>Login</td>
+                        <td>Logged into the system</td>
+                    </tr>
+                    <tr>
+                        <td>2025-10-04 09:40 AM</td>
+                        <td>STA</td>
+                        <td>STA001</td>
+                        <td>Added Record</td>
+                        <td>Added appointment for student 142466</td>
+                    </tr>
+                    <tr>
+                        <td>2025-10-04 09:50 AM</td>
+                        <td>Staff</td>
+                        <td>NURSE01</td>
+                        <td>Edited Record</td>
+                        <td>Updated vaccine for student 142466</td>
+                    </tr>
+                    <tr>;
+                        <td>2025-10-04 10:00 AM</td>
+                        <td>Staff</td>
+                        <td>NURSE01</td>
+                        <td>Added</td>
+                        <td>Added 50 paracetamol to inventory</td>
+                    </tr>
+                    <tr>
+                        <td>2025-10-04 10:30 AM</td>
+                        <td>Student</td>
+                        <td>142469</td>
+                        <td>Request</td>
+                        <td>Request for medical certificate</td>
+                    </tr>
+                    <tr>
+                        <td>2025-10-04 10:55 AM</td>
+                        <td>STA</td>
+                        <td>STA002</td>
+                        <td>Edit</td>
+                        <td>Edited a record</td>
+                    </tr>
                 </table>
             </div>
         </div>
