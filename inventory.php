@@ -5,10 +5,8 @@ if (!isset($_SESSION['role'])) {
     header("Location: index.php");
     exit();
 }
-// Determine current page to highlight active menu item
 $currentPage = basename($_SERVER['PHP_SELF']);
 $role = $_SESSION['role'];
-// Just to check the current role if correct (echo $role;)
 ?>
 
 <!DOCTYPE html>
@@ -39,16 +37,17 @@ $role = $_SESSION['role'];
                 <li><a href="record.php" class="<?php echo ($currentPage === 'record.php') ? 'active' : ''; ?>">👨🏻‍⚕️ Manage Patients</a></li>
             <?php endif; ?>
         </ul>
+      <!--   REMOVE THE HELP BECAUSE WE DONT NEED FAQs 
         <ul class="bottom">
             <li><a href="#">❔ Help</a></li>
-        </ul>
+        </ul>    -->
     </div>
 
     <div class="sidebar-overlay"></div>
 
     <button type="button" class="sidebar-launcher" id="sidebarToggleBtn" aria-label="Toggle sidebar">
-            <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
-        </button> 
+        <img src="asset/images/sidebar.png" alt="Sidebar" style="width:40px;height:auto;" />
+    </button> 
 
     <!-- Main Content -->
     <div class="main-content">
@@ -63,7 +62,7 @@ $role = $_SESSION['role'];
             </div>
         </div>
 
-        <!-- 🔹 Add Button on top (like original design) -->
+        <!-- Add Button -->
         <div id="inv-header">
             <button class="inv-btn" id="openAdd">Add</button>
         </div>
@@ -74,48 +73,83 @@ $role = $_SESSION['role'];
                 <thead>
                     <tr>
                         <th>Medicine Name</th>
-                        <th>Receive Date</th>
-                        <th>Expiry Date</th>
-                        <th>Quantity</th>
-                        <th>Actions</th> <!-- Column for Edit/Delete buttons -->
+                        <th>Total Quantity</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    // ✅ Fetch medicines from DB
-                    $sql = "SELECT medicine_id, medicine_name, receive_date, expiry_date, quantity FROM inventory";
+                    // Get distinct medicines and total quantities
+                    $sql = "SELECT medicine_name, SUM(quantity) as total_qty 
+                            FROM inventory 
+                            GROUP BY medicine_name";
                     $result = mysqli_query($conn, $sql);
 
                     if ($result && mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>
-                                    <td>{$row['medicine_name']}</td>
-                                    <td>{$row['receive_date']}</td>
-                                    <td>{$row['expiry_date']}</td>
-                                    <td>{$row['quantity']}</td>
-                                    <td>
-                                        <!-- Edit Button -->
-                                        <button 
-                                            class='inv-btn editBtn'
-                                            data-id='{$row['medicine_id']}'
-                                            data-name='{$row['medicine_name']}'
-                                            data-receive='{$row['receive_date']}'
-                                            data-expiry='{$row['expiry_date']}'
-                                            data-quantity='{$row['quantity']}'>
-                                            Edit
-                                        </button>
+                            $medicineName = $row['medicine_name'];
+                            $totalQty = $row['total_qty'];
 
-                                        <!-- Delete Button -->
-                                        <button 
-                                            class='inv-btn deleteBtn'
-                                            data-id='{$row['medicine_id']}'>
-                                            Delete
-                                        </button>
+                            echo "<tr class='medicine-row'>
+                                    <td>$medicineName</td>
+                                    <td>$totalQty</td>
+                                    <td>
+                                        <button class='inv-btn toggleBatches' data-name='$medicineName'>▼ Batches</button>
+                                    </td>
+                                  </tr>";
+
+                            // Hidden batch rows for each medicine
+                            echo "<tr class='batch-row' data-medicine='$medicineName' style='display:none;'>
+                                    <td colspan='3'>
+                                        <table class='batch-table'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Receive Date</th>
+                                                    <th>Expiry Date</th>
+                                                    <th>Quantity</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                            
+                            $batchSql = "SELECT * FROM inventory WHERE medicine_name = '$medicineName'";
+                            $batchResult = mysqli_query($conn, $batchSql);
+
+                            if ($batchResult && mysqli_num_rows($batchResult) > 0) {
+                                while ($batch = mysqli_fetch_assoc($batchResult)) {
+                                    echo "<tr>
+                                            <td>{$batch['receive_date']}</td>
+                                            <td>{$batch['expiry_date']}</td>
+                                            <td>{$batch['quantity']}</td>
+                                            <td>
+                                                <button 
+                                                    class='inv-btn editBtn'
+                                                    data-id='{$batch['medicine_id']}'
+                                                    data-name='{$batch['medicine_name']}'
+                                                    data-receive='{$batch['receive_date']}'
+                                                    data-expiry='{$batch['expiry_date']}'
+                                                    data-quantity='{$batch['quantity']}'>
+                                                    Edit
+                                                </button>
+                                                <button 
+                                                    class='inv-btn deleteBtn'
+                                                    data-id='{$batch['medicine_id']}'>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                          </tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>No batches found</td></tr>";
+                            }
+
+                            echo "      </tbody>
+                                        </table>
                                     </td>
                                   </tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='5'>No records found</td></tr>";
+                        echo "<tr><td colspan='3'>No records found</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -154,7 +188,6 @@ $role = $_SESSION['role'];
         <span class="close-btn" data-close="editModal">&times;</span>
         <h2>Edit Medicine</h2>
         <form method="POST" action="edit_inventory.php">
-            <!-- Hidden field to pass medicine_id -->
             <input type="hidden" name="medicine_id" id="edit_id">
             <label>Medicine Name</label>
             <input type="text" name="medicine_name" id="edit_name" required>
@@ -163,7 +196,11 @@ $role = $_SESSION['role'];
             <label>Expiry Date</label>
             <input type="date" name="expiry_date" id="edit_expiry" required>
             <label>Quantity</label>
-            <input type="number" name="quantity" id="edit_quantity" required>
+            <div class="qty-container">
+                <button type="button" class="qty-btn" onclick="changeQty(-1)">-</button>
+                <input type="number" name="quantity" id="edit_quantity" required>
+                <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
             <div class="modal-actions">
                 <button type="submit" class="inv-btn">Update</button>
                 <button type="button" class="inv-btn" data-close="editModal">Cancel</button>
@@ -191,7 +228,7 @@ $role = $_SESSION['role'];
 <!-- ===== Sidebar + Modal Script ===== -->
 <script>
 (function() {
-    // ===== Sidebar Logic =====
+    // Sidebar
     var sidebar = document.getElementById('appSidebar');
     var container = document.querySelector('.dashboard-container');
     var overlay = document.querySelector('.sidebar-overlay');
@@ -211,11 +248,11 @@ $role = $_SESSION['role'];
         sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
     }
 
-    closeSidebar(); // start closed
+    closeSidebar();
     if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
     if (overlay) overlay.addEventListener('click', closeSidebar);
 
-    // ===== Modal Logic =====
+    // Modals
     function openModal(id) { document.getElementById(id).style.display = 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
@@ -229,7 +266,7 @@ $role = $_SESSION['role'];
         });
     });
 
-    // ===== Edit Button Logic =====
+    // Edit
     document.querySelectorAll('.editBtn').forEach(function(button) {
         button.addEventListener('click', function() {
             document.getElementById('edit_id').value = this.dataset.id;
@@ -241,14 +278,36 @@ $role = $_SESSION['role'];
         });
     });
 
-    // ===== Delete Button Logic =====
+    // Delete
     document.querySelectorAll('.deleteBtn').forEach(function(button) {
         button.addEventListener('click', function() {
             document.getElementById('delete_id').value = this.dataset.id;
             openModal('deleteModal');
         });
     });
+
+    // Toggle batches
+    document.querySelectorAll('.toggleBatches').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var medicine = this.getAttribute('data-name');
+            var batchRow = document.querySelector('.batch-row[data-medicine="' + medicine + '"]');
+            if (batchRow.style.display === 'none') {
+                batchRow.style.display = 'table-row';
+                this.textContent = '▲ Batches';
+            } else {
+                batchRow.style.display = 'none';
+                this.textContent = '▼ Batches';
+            }
+        });
+    });
+
 })();
+function changeQty(val) {
+    var qtyInput = document.getElementById('edit_quantity');
+    var current = parseInt(qtyInput.value) || 0;
+    var newValue = current + val;
+    if (newValue >= 0) qtyInput.value = newValue;
+}
 </script>
 </body>
 </html>
